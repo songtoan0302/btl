@@ -1,70 +1,44 @@
-entity User {
-  id Long,
-  name String,
-  phoneNumber String,
-  email String required unique,
-  password String,
-  role String,
-  description TextBlob
-}
 
-entity Order {
-  id Long,
-  recipientName String,
-  receivePhoneNumber String,
-  receiveAddress TextBlob,
-  statusPayment String,
-  statusOrder String,
+entity OrderDetail {
+  recipientName String
+  receivePhoneNumber String
+  receiveAddress TextBlob
+  statusPayment String
+  statusOrder String
   paymentMethod String
-}
-
-relationship ManyToOne {
-  Order{customer(id)} to User
+  userId Long
 }
 
 entity OrderProduct {
-  id Long,
-  productName String,
-  quantity Integer,
+  productName String
+  quantity Integer
   price BigDecimal
 }
 
 relationship ManyToOne {
-  OrderProduct{order(id)} to Order,
-  OrderProduct{product(id)} to Product
+  OrderProduct{order} to OrderDetail
+  OrderProduct{product} to Product
 }
 
 entity Product {
-  id Long,
-  name String,
-  price BigDecimal,
-  description TextBlob,
-  quantity Integer,
+  name String
+  price BigDecimal
+  description TextBlob
+  quantity Integer
   urlImage TextBlob
 }
 
 entity ShoppingCart {
-  id Long,
   quantity Integer
+  userId Long
 }
 
 relationship ManyToOne {
-  ShoppingCart{customer(id)} to User,
-  ShoppingCart{product(id)} to Product
+  ShoppingCart{product} to Product
 }
 
 // Set pagination options
-paginate User, Order, Product, ShoppingCart with pagination
-paginate OrderProduct with infinite-scroll
+// paginate User, OrderDetail, Product, ShoppingCart with pagination
+// paginate OrderProduct with infinite-scroll
 
-// DTOs
-dto * with mapstruct
 
-// Service classes (Service or ServiceImpl)
-service * with serviceClass
-
-// Set service options to all except few
-service all with serviceImpl except User, Order
-
-// Set an angular suffix
-angularSuffix * with mySuffix

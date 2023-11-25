@@ -1,0 +1,39 @@
+{
+  "applications": "*",
+  "changelogDate": "20231125135145",
+  "entityTableName": "order_detail",
+  "fields": [
+    {
+      "fieldName": "recipientName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "receivePhoneNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "receiveAddress",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "statusPayment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "statusOrder",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "paymentMethod",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "userId",
+      "fieldType": "Long"
+    }
+  ],
+  "name": "OrderDetail",
+  "relationships": [],
+  "searchEngine": "no"
+}
