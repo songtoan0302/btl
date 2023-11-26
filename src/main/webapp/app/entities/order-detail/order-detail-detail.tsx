@@ -23,9 +23,6 @@ export const OrderDetailDetail = () => {
       <Col md="8">
         <h2 data-cy="orderDetailDetailsHeading">Order Detail</h2>
         <dl className="jh-entity-details">
-          <dt>
-            <span id="id">Translation missing for global.field.id</span>
-          </dt>
           <dd>{orderDetailEntity.id}</dd>
           <dt>
             <span id="recipientName">Recipient Name</span>
@@ -57,11 +54,11 @@ export const OrderDetailDetail = () => {
           <dd>{orderDetailEntity.userId}</dd>
         </dl>
         <Button tag={Link} to="/order-detail" replace color="info" data-cy="entityDetailsBackButton">
-          <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Translation missing for entity.action.back</span>
+          <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Quay lại</span>
         </Button>
         &nbsp;
         <Button tag={Link} to={`/order-detail/${orderDetailEntity.id}/edit`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Translation missing for entity.action.edit</span>
+          <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Sửa</span>
         </Button>
       </Col>
     </Row>

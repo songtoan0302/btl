@@ -21,29 +21,26 @@ export const ShoppingCartDetail = () => {
   return (
     <Row>
       <Col md="8">
-        <h2 data-cy="shoppingCartDetailsHeading">Shopping Cart</h2>
+        <h2 data-cy="shoppingCartDetailsHeading">Giỏ hàng</h2>
         <dl className="jh-entity-details">
-          <dt>
-            <span id="id">Translation missing for global.field.id</span>
-          </dt>
           <dd>{shoppingCartEntity.id}</dd>
           <dt>
             <span id="quantity">Quantity</span>
           </dt>
           <dd>{shoppingCartEntity.quantity}</dd>
           <dt>
-            <span id="userId">User Id</span>
+            <span id="userId">Name</span>
           </dt>
-          <dd>{shoppingCartEntity.userId}</dd>
+          <dd>{shoppingCartEntity.product ? shoppingCartEntity.product.name : ''}</dd>
           <dt>Product</dt>
           <dd>{shoppingCartEntity.product ? shoppingCartEntity.product.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/shopping-cart" replace color="info" data-cy="entityDetailsBackButton">
-          <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Translation missing for entity.action.back</span>
+          <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Quay lại</span>
         </Button>
         &nbsp;
         <Button tag={Link} to={`/shopping-cart/${shoppingCartEntity.id}/edit`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Translation missing for entity.action.edit</span>
+          <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Sửa</span>
         </Button>
       </Col>
     </Row>

@@ -73,7 +73,7 @@ export const OrderProduct = () => {
           </Button>
           <Link to="/order-product/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Create a new Order Product
+            &nbsp; Tạo mới sản phẩm
           </Link>
         </div>
       </h2>
@@ -120,11 +120,11 @@ export const OrderProduct = () => {
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/order-product/${orderProduct.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">Translation missing for entity.action.view</span>
+                        <span className="d-none d-md-inline">Xem chi tiết</span>
                       </Button>
                       <Button tag={Link} to={`/order-product/${orderProduct.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">Translation missing for entity.action.edit</span>
+                        <span className="d-none d-md-inline">Sửa</span>
                       </Button>
                       <Button
                         onClick={() => (location.href = `/order-product/${orderProduct.id}/delete`)}
@@ -133,7 +133,7 @@ export const OrderProduct = () => {
                         data-cy="entityDeleteButton"
                       >
                         <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">Translation missing for entity.action.delete</span>
+                        <span className="d-none d-md-inline">Xóa</span>
                       </Button>
                     </div>
                   </td>

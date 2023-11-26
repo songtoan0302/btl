@@ -160,10 +160,10 @@ public class OrderDetailResource {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orderDetails in body.
      */
-    @GetMapping("")
-    public List<OrderDetail> getAllOrderDetails() {
+    @GetMapping("/user/{user_id}")
+    public List<OrderDetail> getAllOrderDetails(@PathVariable("user_id") Long id) {
         log.debug("REST request to get all OrderDetails");
-        return orderDetailRepository.findAll();
+        return orderDetailRepository.findByUserId(id);
     }
 
     /**

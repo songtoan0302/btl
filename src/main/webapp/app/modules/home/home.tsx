@@ -13,72 +13,44 @@ export const Home = () => {
   return (
     <Row>
       <Col md="3" className="pad">
-        <span className="hipster rounded" />
+        {/* Consider adding a logo or a relevant image here */}
+        <span className="rounded" style={{ backgroundImage: 'url(path-to-your-image.png)' }} />
       </Col>
       <Col md="9">
-        <h1 className="display-4">Welcome, Java Hipster!</h1>
-        <p className="lead">This is your homepage</p>
+        <h1 className="display-4">Welcome to Your Online Store!</h1>
+        <p className="lead">Discover a wide range of products at unbeatable prices!</p>
         {account?.login ? (
-          <div>
-            <Alert color="success">You are logged in as user &quot;{account.login}&quot;.</Alert>
-          </div>
+          <Alert color="success">Happy shopping, {account.login}!</Alert>
         ) : (
-          <div>
-            <Alert color="warning">
-              If you want to
-              <span>&nbsp;</span>
-              <Link to="/login" className="alert-link">
-                sign in
-              </Link>
-              , you can try the default accounts:
-              <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;) <br />- User (login=&quot;user&quot; and
-              password=&quot;user&quot;).
-            </Alert>
-
-            <Alert color="warning">
-              You don&apos;t have an account yet?&nbsp;
-              <Link to="/account/register" className="alert-link">
-                Register a new account
-              </Link>
-            </Alert>
-          </div>
+          <Alert color="info">
+            Start shopping with us.
+            <Link to="/login" className="alert-link"> Sign in </Link> or
+            <Link to="/account/register" className="alert-link"> Register </Link>
+          </Alert>
         )}
-        <p>If you have any question on JHipster:</p>
 
+        {/* You can introduce different categories or popular products here */}
+        <p>Explore our categories:</p>
         <ul>
-          <li>
-            <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
-              JHipster homepage
-            </a>
-          </li>
-          <li>
-            <a href="https://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">
-              JHipster on Stack Overflow
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">
-              JHipster bug tracker
-            </a>
-          </li>
-          <li>
-            <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-              JHipster public chat room
-            </a>
-          </li>
-          <li>
-            <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">
-              follow @jhipster on Twitter
-            </a>
-          </li>
+          <li><Link to="/category/electronics">Electronics</Link></li>
+          <li><Link to="/category/fashion">Fashion</Link></li>
+          <li><Link to="/category/home">Home and Living</Link></li>
+          // Add more categories as needed
         </ul>
 
+        {/* Include any special offers or policies */}
+        <p>Why shop with us?</p>
+        <ul>
+          <li>24/7 Customer Support</li>
+          <li>Easy Return Policies</li>
+          <li>Secure Payment Process</li>
+          // Add more benefits
+        </ul>
+
+        {/* Optional: Add a section for testimonials or featured products */}
+
         <p>
-          If you like JHipster, don&apos;t forget to give us a star on{' '}
-          <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-          !
+          Love our deals? Spread the word and <Link to="/referral">refer a friend</Link>!
         </p>
       </Col>
     </Row>

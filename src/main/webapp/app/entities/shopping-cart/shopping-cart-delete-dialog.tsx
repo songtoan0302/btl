@@ -45,16 +45,16 @@ export const ShoppingCartDeleteDialog = () => {
         Translation missing for entity.delete.title
       </ModalHeader>
       <ModalBody id="productServiceApp.shoppingCart.delete.question">
-        Are you sure you want to delete Shopping Cart {shoppingCartEntity.id}?
+        Bạn chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?
       </ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />
-          &nbsp; Translation missing for entity.action.cancel
+          &nbsp; Hủy
         </Button>
         <Button id="jhi-confirm-delete-shoppingCart" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
           <FontAwesomeIcon icon="trash" />
-          &nbsp; Translation missing for entity.action.delete
+          &nbsp; Xóa
         </Button>
       </ModalFooter>
     </Modal>

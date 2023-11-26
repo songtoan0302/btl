@@ -50,11 +50,11 @@ export const OrderProductDeleteDialog = () => {
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />
-          &nbsp; Translation missing for entity.action.cancel
+          &nbsp; Hủy
         </Button>
         <Button id="jhi-confirm-delete-orderProduct" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
           <FontAwesomeIcon icon="trash" />
-          &nbsp; Translation missing for entity.action.delete
+          &nbsp; Xóa
         </Button>
       </ModalFooter>
     </Modal>

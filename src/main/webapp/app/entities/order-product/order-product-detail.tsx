@@ -23,9 +23,6 @@ export const OrderProductDetail = () => {
       <Col md="8">
         <h2 data-cy="orderProductDetailsHeading">Order Product</h2>
         <dl className="jh-entity-details">
-          <dt>
-            <span id="id">Translation missing for global.field.id</span>
-          </dt>
           <dd>{orderProductEntity.id}</dd>
           <dt>
             <span id="productName">Product Name</span>
@@ -45,11 +42,11 @@ export const OrderProductDetail = () => {
           <dd>{orderProductEntity.product ? orderProductEntity.product.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/order-product" replace color="info" data-cy="entityDetailsBackButton">
-          <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Translation missing for entity.action.back</span>
+          <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Quay lại</span>
         </Button>
         &nbsp;
         <Button tag={Link} to={`/order-product/${orderProductEntity.id}/edit`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Translation missing for entity.action.edit</span>
+          <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Sửa</span>
         </Button>
       </Col>
     </Row>

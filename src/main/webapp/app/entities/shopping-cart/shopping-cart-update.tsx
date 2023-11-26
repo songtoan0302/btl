@@ -101,13 +101,14 @@ export const ShoppingCartUpdate = () => {
                   required
                   readOnly
                   id="shopping-cart-id"
+                  disabled
                   label="Translation missing for global.field.id"
                   validate={{ required: true }}
                 />
               ) : null}
               <ValidatedField label="Quantity" id="shopping-cart-quantity" name="quantity" data-cy="quantity" type="text" />
-              <ValidatedField label="User Id" id="shopping-cart-userId" name="userId" data-cy="userId" type="text" />
-              <ValidatedField id="shopping-cart-product" name="product" data-cy="product" label="Product" type="select">
+              <ValidatedField disabled label="User Id" id="shopping-cart-userId" name="userId" data-cy="userId" type="text" />
+              <ValidatedField disabled id="shopping-cart-product" name="product" data-cy="product" label="Product" type="select">
                 <option value="" key="0" />
                 {products
                   ? products.map(otherEntity => (
@@ -120,12 +121,12 @@ export const ShoppingCartUpdate = () => {
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/shopping-cart" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
-                <span className="d-none d-md-inline">Translation missing for entity.action.back</span>
+                <span className="d-none d-md-inline">Quay lại</span>
               </Button>
               &nbsp;
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
-                &nbsp; Translation missing for entity.action.save
+                &nbsp; Tạo
               </Button>
             </ValidatedForm>
           )}

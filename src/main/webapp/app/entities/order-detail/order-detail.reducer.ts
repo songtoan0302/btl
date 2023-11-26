@@ -19,7 +19,7 @@ const apiUrl = 'api/order-details';
 // Actions
 
 export const getEntities = createAsyncThunk('orderDetail/fetch_entity_list', async ({ sort }: IQueryParams) => {
-  const requestUrl = `${apiUrl}?${sort ? `sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
+  const requestUrl = `${apiUrl}/user/2?${sort ? `sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
   return axios.get<IOrderDetail[]>(requestUrl);
 });
 
@@ -36,6 +36,16 @@ export const createEntity = createAsyncThunk(
   'orderDetail/create_entity',
   async (entity: IOrderDetail, thunkAPI) => {
     const result = await axios.post<IOrderDetail>(apiUrl, cleanEntity(entity));
+    thunkAPI.dispatch(getEntities({}));
+    return result;
+  },
+  { serializeError: serializeAxiosError },
+);
+
+export const createEntityV2 = createAsyncThunk(
+  'orderDetail/create_entity',
+  async (entity: IOrderDetail, thunkAPI) => {
+    const result = await axios.post<IOrderDetail>('api/order', cleanEntity(entity));
     thunkAPI.dispatch(getEntities({}));
     return result;
   },

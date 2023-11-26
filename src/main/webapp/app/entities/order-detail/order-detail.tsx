@@ -128,11 +128,11 @@ export const OrderDetail = () => {
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/order-detail/${orderDetail.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">Translation missing for entity.action.view</span>
+                        <span className="d-none d-md-inline">Xem chi tiết</span>
                       </Button>
                       <Button tag={Link} to={`/order-detail/${orderDetail.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">Translation missing for entity.action.edit</span>
+                        <span className="d-none d-md-inline">Sửa</span>
                       </Button>
                       <Button
                         onClick={() => (location.href = `/order-detail/${orderDetail.id}/delete`)}
@@ -141,7 +141,7 @@ export const OrderDetail = () => {
                         data-cy="entityDeleteButton"
                       >
                         <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">Translation missing for entity.action.delete</span>
+                        <span className="d-none d-md-inline">Xóa</span>
                       </Button>
                     </div>
                   </td>

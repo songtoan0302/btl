@@ -7,6 +7,7 @@ import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
 import { ASC, DESC, SORT } from 'app/shared/util/pagination.constants';
 import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { createEntity } from '../shopping-cart/shopping-cart.reducer';
 
 import { getEntities } from './product.reducer';
 
@@ -17,21 +18,24 @@ export const Product = () => {
   const navigate = useNavigate();
 
   const [sortState, setSortState] = useState(overrideSortStateWithQueryParams(getSortState(pageLocation, 'id'), pageLocation.search));
+  const [keyword, setKeyword] = useState("")
 
   const productList = useAppSelector(state => state.product.entities);
   const loading = useAppSelector(state => state.product.loading);
-
+  const account = useAppSelector(state => state.authentication.account);
+  console.log("account", account?.authorities?.length )
   const getAllEntities = () => {
     dispatch(
       getEntities({
         sort: `${sortState.sort},${sortState.order}`,
+        keyword: keyword
       }),
     );
   };
 
   const sortEntities = () => {
     getAllEntities();
-    const endURL = `?sort=${sortState.sort},${sortState.order}`;
+    const endURL = `?sort=${sortState.sort},${sortState.order}&keyword=''`;
     if (pageLocation.search !== endURL) {
       navigate(`${pageLocation.pathname}${endURL}`);
     }
@@ -50,8 +54,22 @@ export const Product = () => {
   };
 
   const handleSyncList = () => {
-    sortEntities();
+  getAllEntities()
+  const endURL = `?sort=${sortState.sort},${sortState.order}&keyword=${keyword}`;
+      if (pageLocation.search !== endURL) {
+        navigate(`${pageLocation.pathname}${endURL}`);
+      }
   };
+
+  const saveEntity = values => {
+      const entity = {
+        quantity: 1,
+        userId: account.id
+        product: values
+      };
+
+        dispatch(createEntity(entity));
+    };
 
   const getSortIconByFieldName = (fieldName: string) => {
     const sortFieldName = sortState.sort;
@@ -68,13 +86,14 @@ export const Product = () => {
       <h2 id="product-heading" data-cy="ProductHeading">
         Products
         <div className="d-flex justify-content-end">
+        <input placeholder="Tìm kiếm sản phẩm" onChange={(e) => setKeyword(e.target.value)}/>
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
+            <FontAwesomeIcon icon="search" spin={loading} /> Tìm kiếm
           </Button>
-          <Link to="/product/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+         {account?.authorities?.length >= 2 && <Link to="/product/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Create a new Product
-          </Link>
+          </Link>}
         </div>
       </h2>
       <div className="table-responsive">
@@ -115,16 +134,21 @@ export const Product = () => {
                   <td>{product.price}</td>
                   <td>{product.description}</td>
                   <td>{product.quantity}</td>
-                  <td>{product.urlImage}</td>
+                  <td><img src={product.urlImage} alt="img" style={{width: "150px", height: "150px"}}/></td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/product/${product.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">Translation missing for entity.action.view</span>
+                        <span className="d-none d-md-inline">Xem chi tiết</span>
                       </Button>
-                      <Button tag={Link} to={`/product/${product.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
+                      {
+                      account?.authorities?.length === 1 && <Button color="primary" size="sm" data-cy="entityEditButton" onClick={() => saveEntity(product)}>
+                                                                                    <span className="d-none d-md-inline">Thêm vào giỏ hàng</span>
+                                                                                  </Button>
+                      }
+                      {account?.authorities?.length >= 2 && <Button tag={Link} to={`/product/${product.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">Translation missing for entity.action.edit</span>
+                        <span className="d-none d-md-inline">Sửa</span>
                       </Button>
                       <Button
                         onClick={() => (location.href = `/product/${product.id}/delete`)}
@@ -133,8 +157,8 @@ export const Product = () => {
                         data-cy="entityDeleteButton"
                       >
                         <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">Translation missing for entity.action.delete</span>
-                      </Button>
+                        <span className="d-none d-md-inline">Xóa</span>
+                      </Button>}
                     </div>
                   </td>
                 </tr>

@@ -135,12 +135,12 @@ export const OrderDetailUpdate = () => {
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/order-detail" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
-                <span className="d-none d-md-inline">Translation missing for entity.action.back</span>
+                <span className="d-none d-md-inline">Quay lại</span>
               </Button>
               &nbsp;
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
-                &nbsp; Translation missing for entity.action.save
+                &nbsp; Lưu
               </Button>
             </ValidatedForm>
           )}

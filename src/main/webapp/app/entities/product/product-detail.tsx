@@ -16,20 +16,14 @@ export const ProductDetail = () => {
   useEffect(() => {
     dispatch(getEntity(id));
   }, []);
-
+const account = useAppSelector(state => state.authentication.account);
+  console.log("account", account?.authorities?.length )
   const productEntity = useAppSelector(state => state.product.entity);
   return (
     <Row>
       <Col md="8">
         <h2 data-cy="productDetailsHeading">Product</h2>
         <dl className="jh-entity-details">
-          <dt>
-            <span id="id">Translation missing for global.field.id</span>
-          </dt>
-          <dd>{productEntity.id}</dd>
-          <dt>
-            <span id="name">Name</span>
-          </dt>
           <dd>{productEntity.name}</dd>
           <dt>
             <span id="price">Price</span>
@@ -46,15 +40,17 @@ export const ProductDetail = () => {
           <dt>
             <span id="urlImage">Url Image</span>
           </dt>
-          <dd>{productEntity.urlImage}</dd>
+          <dd>  <img src={productEntity.urlImage} alt="img" style={{width: "150px", height: "150px"}}/>
+</dd>
         </dl>
         <Button tag={Link} to="/product" replace color="info" data-cy="entityDetailsBackButton">
-          <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Translation missing for entity.action.back</span>
+          <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Quay lại</span>
         </Button>
         &nbsp;
-        <Button tag={Link} to={`/product/${productEntity.id}/edit`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Translation missing for entity.action.edit</span>
-        </Button>
+        {account?.authorities?.length >= 2 && <Button tag={Link} to={`/product/${productEntity.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
+                                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                <span className="d-none d-md-inline">Sửa</span>
+                              </Button>
       </Col>
     </Row>
   );

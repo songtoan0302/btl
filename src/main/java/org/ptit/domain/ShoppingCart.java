@@ -24,7 +24,7 @@ public class ShoppingCart implements Serializable {
     @Column(name = "user_id")
     private Long userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

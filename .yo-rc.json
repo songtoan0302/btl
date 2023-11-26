@@ -17,7 +17,7 @@
     "enableHibernateCache": false,
     "enableSwaggerCodegen": false,
     "enableTranslation": false,
-    "entities": ["OrderDetail", "OrderProduct", "Product", "ShoppingCart"],
+    "Tính năng": ["Chi tiết đơn hàng", "Đơn hàng", "Sản phẩm", "Giỏ hàng"],
     "gradleEnterpriseHost": null,
     "jhipsterVersion": "8.0.0",
     "jwtSecretKey": "MzkyOTYzYTVjN2Y3ZWQzNWM3YzhmMWNjMTE0M2EwMjI2NTE5YjYxYjMyMWQxZDBjNWQ5MjRkNzU5YzVkNTU0YjU4YWRiYzMzMzgyZGZhNGI4NGMyZWNkMjIxNjY5NGQyYTJlOWI0NWIzNjNhMjgwYjc5OWIyYmUyNjM4ZTI5NmU=",

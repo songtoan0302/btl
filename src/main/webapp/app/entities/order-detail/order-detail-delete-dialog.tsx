@@ -45,16 +45,16 @@ export const OrderDetailDeleteDialog = () => {
         Translation missing for entity.delete.title
       </ModalHeader>
       <ModalBody id="productServiceApp.orderDetail.delete.question">
-        Are you sure you want to delete Order Detail {orderDetailEntity.id}?
+        Bạn có chắc chắn muốn xóa đơn hàng này?
       </ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />
-          &nbsp; Translation missing for entity.action.cancel
+          &nbsp; Hủy
         </Button>
         <Button id="jhi-confirm-delete-orderDetail" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
           <FontAwesomeIcon icon="trash" />
-          &nbsp; Translation missing for entity.action.delete
+          &nbsp; Xóa
         </Button>
       </ModalFooter>
     </Modal>

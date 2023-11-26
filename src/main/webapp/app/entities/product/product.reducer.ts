@@ -18,8 +18,8 @@ const apiUrl = 'api/products';
 
 // Actions
 
-export const getEntities = createAsyncThunk('product/fetch_entity_list', async ({ sort }: IQueryParams) => {
-  const requestUrl = `${apiUrl}?${sort ? `sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
+export const getEntities = createAsyncThunk('product/fetch_entity_list', async ({ sort, keyword }: IQueryParams) => {
+  const requestUrl = `${apiUrl}?${sort ? `sort=${sort}&` : ''}${keyword ? `name=${keyword}&` : ''}cacheBuster=${new Date().getTime()}`;
   return axios.get<IProduct[]>(requestUrl);
 });
 

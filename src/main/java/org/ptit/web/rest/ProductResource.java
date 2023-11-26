@@ -11,6 +11,7 @@ import org.ptit.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -153,9 +154,9 @@ public class ProductResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.
      */
     @GetMapping("")
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts(@Param("name") String name) {
         log.debug("REST request to get all Products");
-        return productRepository.findAll();
+        return productRepository.findByNameContaining(name == null ? "": name);
     }
 
     /**

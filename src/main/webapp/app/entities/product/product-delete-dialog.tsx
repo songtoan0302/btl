@@ -48,11 +48,11 @@ export const ProductDeleteDialog = () => {
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />
-          &nbsp; Translation missing for entity.action.cancel
+          &nbsp; Hủy
         </Button>
         <Button id="jhi-confirm-delete-product" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
           <FontAwesomeIcon icon="trash" />
-          &nbsp; Translation missing for entity.action.delete
+          &nbsp; Xóa
         </Button>
       </ModalFooter>
     </Modal>

@@ -9,6 +9,7 @@ import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { getEntities } from './shopping-cart.reducer';
+import {createEntityV2} from '../order-detail/order-detail.reducer'
 
 export const ShoppingCart = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ export const ShoppingCart = () => {
 
   const shoppingCartList = useAppSelector(state => state.shoppingCart.entities);
   const loading = useAppSelector(state => state.shoppingCart.loading);
+  const account = useAppSelector(state => state.authentication.account);
 
   const getAllEntities = () => {
     dispatch(
@@ -63,17 +65,25 @@ export const ShoppingCart = () => {
     }
   };
 
+  const handleBuyNow = () => {
+  const params = {
+                     "userId": account.id,
+                     "product": [...shoppingCartList]
+                 }
+                 dispatch(createEntityV2(params));
+  }
+
   return (
     <div>
       <h2 id="shopping-cart-heading" data-cy="ShoppingCartHeading">
-        Shopping Carts
+        Giỏ hàng
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
           </Button>
-          <Link to="/shopping-cart/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+          <Button onClick={() => handleBuyNow()} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Create a new Shopping Cart
+            &nbsp; Buy now
           </Link>
         </div>
       </h2>
@@ -89,16 +99,19 @@ export const ShoppingCart = () => {
                   Quantity <FontAwesomeIcon icon={getSortIconByFieldName('quantity')} />
                 </th>
                 <th className="hand" onClick={sort('userId')}>
-                  User Id <FontAwesomeIcon icon={getSortIconByFieldName('userId')} />
+                  Name<FontAwesomeIcon icon={getSortIconByFieldName('userId')} />
                 </th>
+
                 <th>
-                  Product <FontAwesomeIcon icon="sort" />
-                </th>
+                                  image
+                                </th>
                 <th />
               </tr>
             </thead>
             <tbody>
+            {console.log("shoppingCart", shoppingCartList)}
               {shoppingCartList.map((shoppingCart, i) => (
+
                 <tr key={`entity-${i}`} data-cy="entityTable">
                   <td>
                     <Button tag={Link} to={`/shopping-cart/${shoppingCart.id}`} color="link" size="sm">
@@ -106,17 +119,17 @@ export const ShoppingCart = () => {
                     </Button>
                   </td>
                   <td>{shoppingCart.quantity}</td>
-                  <td>{shoppingCart.userId}</td>
-                  <td>{shoppingCart.product ? <Link to={`/product/${shoppingCart.product.id}`}>{shoppingCart.product.id}</Link> : ''}</td>
+                  <td>{shoppingCart.product ? shoppingCart.product.name : ""}</td>
+                  <td><img src={shoppingCart.product ? shoppingCart.product.urlImage : ""} alt="img" style={{width: "150px", height: "150px"}}/></td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/shopping-cart/${shoppingCart.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">Translation missing for entity.action.view</span>
+                        <span className="d-none d-md-inline">Xem chi tiết</span>
                       </Button>
                       <Button tag={Link} to={`/shopping-cart/${shoppingCart.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">Translation missing for entity.action.edit</span>
+                        <span className="d-none d-md-inline">Sửa</span>
                       </Button>
                       <Button
                         onClick={() => (location.href = `/shopping-cart/${shoppingCart.id}/delete`)}
@@ -125,7 +138,7 @@ export const ShoppingCart = () => {
                         data-cy="entityDeleteButton"
                       >
                         <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">Translation missing for entity.action.delete</span>
+                        <span className="d-none d-md-inline">Xóa</span>
                       </Button>
                     </div>
                   </td>
