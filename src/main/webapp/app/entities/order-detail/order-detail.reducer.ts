@@ -45,7 +45,7 @@ export const createEntity = createAsyncThunk(
 export const createEntityV2 = createAsyncThunk(
   'orderDetail/create_entity',
   async (entity: IOrderDetail, thunkAPI) => {
-    const result = await axios.post<IOrderDetail>('api/order', cleanEntity(entity));
+    const result = await axios.post<IOrderDetail>('api/order-details/new', cleanEntity(entity));
     thunkAPI.dispatch(getEntities({}));
     return result;
   },

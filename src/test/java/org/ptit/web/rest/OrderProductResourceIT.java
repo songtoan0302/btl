@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ptit.IntegrationTest;
-import org.ptit.domain.OrderProduct;
+import org.ptit.domain.OrderProduct593;
 import org.ptit.repository.OrderProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Integration tests for the {@link OrderProductResource} REST controller.
+ * Integration tests for the {@link OrderProductController} REST controller.
  */
 @IntegrationTest
 @AutoConfigureMockMvc
@@ -55,7 +55,7 @@ class OrderProductResourceIT {
     @Autowired
     private MockMvc restOrderProductMockMvc;
 
-    private OrderProduct orderProduct;
+    private OrderProduct593 orderProduct;
 
     /**
      * Create an entity for this test.
@@ -63,8 +63,8 @@ class OrderProductResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static OrderProduct createEntity(EntityManager em) {
-        OrderProduct orderProduct = new OrderProduct().productName(DEFAULT_PRODUCT_NAME).quantity(DEFAULT_QUANTITY).price(DEFAULT_PRICE);
+    public static OrderProduct593 createEntity(EntityManager em) {
+        OrderProduct593 orderProduct = new OrderProduct593().productName(DEFAULT_PRODUCT_NAME).quantity(DEFAULT_QUANTITY).price(DEFAULT_PRICE);
         return orderProduct;
     }
 
@@ -74,8 +74,8 @@ class OrderProductResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static OrderProduct createUpdatedEntity(EntityManager em) {
-        OrderProduct orderProduct = new OrderProduct().productName(UPDATED_PRODUCT_NAME).quantity(UPDATED_QUANTITY).price(UPDATED_PRICE);
+    public static OrderProduct593 createUpdatedEntity(EntityManager em) {
+        OrderProduct593 orderProduct = new OrderProduct593().productName(UPDATED_PRODUCT_NAME).quantity(UPDATED_QUANTITY).price(UPDATED_PRICE);
         return orderProduct;
     }
 
@@ -94,9 +94,9 @@ class OrderProductResourceIT {
             .andExpect(status().isCreated());
 
         // Validate the OrderProduct in the database
-        List<OrderProduct> orderProductList = orderProductRepository.findAll();
+        List<OrderProduct593> orderProductList = orderProductRepository.findAll();
         assertThat(orderProductList).hasSize(databaseSizeBeforeCreate + 1);
-        OrderProduct testOrderProduct = orderProductList.get(orderProductList.size() - 1);
+        OrderProduct593 testOrderProduct = orderProductList.get(orderProductList.size() - 1);
         assertThat(testOrderProduct.getProductName()).isEqualTo(DEFAULT_PRODUCT_NAME);
         assertThat(testOrderProduct.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
         assertThat(testOrderProduct.getPrice()).isEqualByComparingTo(DEFAULT_PRICE);
@@ -116,7 +116,7 @@ class OrderProductResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the OrderProduct in the database
-        List<OrderProduct> orderProductList = orderProductRepository.findAll();
+        List<OrderProduct593> orderProductList = orderProductRepository.findAll();
         assertThat(orderProductList).hasSize(databaseSizeBeforeCreate);
     }
 
@@ -170,7 +170,7 @@ class OrderProductResourceIT {
         int databaseSizeBeforeUpdate = orderProductRepository.findAll().size();
 
         // Update the orderProduct
-        OrderProduct updatedOrderProduct = orderProductRepository.findById(orderProduct.getId()).orElseThrow();
+        OrderProduct593 updatedOrderProduct = orderProductRepository.findById(orderProduct.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedOrderProduct are not directly saved in db
         em.detach(updatedOrderProduct);
         updatedOrderProduct.productName(UPDATED_PRODUCT_NAME).quantity(UPDATED_QUANTITY).price(UPDATED_PRICE);
@@ -184,9 +184,9 @@ class OrderProductResourceIT {
             .andExpect(status().isOk());
 
         // Validate the OrderProduct in the database
-        List<OrderProduct> orderProductList = orderProductRepository.findAll();
+        List<OrderProduct593> orderProductList = orderProductRepository.findAll();
         assertThat(orderProductList).hasSize(databaseSizeBeforeUpdate);
-        OrderProduct testOrderProduct = orderProductList.get(orderProductList.size() - 1);
+        OrderProduct593 testOrderProduct = orderProductList.get(orderProductList.size() - 1);
         assertThat(testOrderProduct.getProductName()).isEqualTo(UPDATED_PRODUCT_NAME);
         assertThat(testOrderProduct.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testOrderProduct.getPrice()).isEqualByComparingTo(UPDATED_PRICE);
@@ -208,7 +208,7 @@ class OrderProductResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the OrderProduct in the database
-        List<OrderProduct> orderProductList = orderProductRepository.findAll();
+        List<OrderProduct593> orderProductList = orderProductRepository.findAll();
         assertThat(orderProductList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -228,7 +228,7 @@ class OrderProductResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the OrderProduct in the database
-        List<OrderProduct> orderProductList = orderProductRepository.findAll();
+        List<OrderProduct593> orderProductList = orderProductRepository.findAll();
         assertThat(orderProductList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -244,7 +244,7 @@ class OrderProductResourceIT {
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the OrderProduct in the database
-        List<OrderProduct> orderProductList = orderProductRepository.findAll();
+        List<OrderProduct593> orderProductList = orderProductRepository.findAll();
         assertThat(orderProductList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -257,7 +257,7 @@ class OrderProductResourceIT {
         int databaseSizeBeforeUpdate = orderProductRepository.findAll().size();
 
         // Update the orderProduct using partial update
-        OrderProduct partialUpdatedOrderProduct = new OrderProduct();
+        OrderProduct593 partialUpdatedOrderProduct = new OrderProduct593();
         partialUpdatedOrderProduct.setId(orderProduct.getId());
 
         partialUpdatedOrderProduct.productName(UPDATED_PRODUCT_NAME);
@@ -271,9 +271,9 @@ class OrderProductResourceIT {
             .andExpect(status().isOk());
 
         // Validate the OrderProduct in the database
-        List<OrderProduct> orderProductList = orderProductRepository.findAll();
+        List<OrderProduct593> orderProductList = orderProductRepository.findAll();
         assertThat(orderProductList).hasSize(databaseSizeBeforeUpdate);
-        OrderProduct testOrderProduct = orderProductList.get(orderProductList.size() - 1);
+        OrderProduct593 testOrderProduct = orderProductList.get(orderProductList.size() - 1);
         assertThat(testOrderProduct.getProductName()).isEqualTo(UPDATED_PRODUCT_NAME);
         assertThat(testOrderProduct.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
         assertThat(testOrderProduct.getPrice()).isEqualByComparingTo(DEFAULT_PRICE);
@@ -288,7 +288,7 @@ class OrderProductResourceIT {
         int databaseSizeBeforeUpdate = orderProductRepository.findAll().size();
 
         // Update the orderProduct using partial update
-        OrderProduct partialUpdatedOrderProduct = new OrderProduct();
+        OrderProduct593 partialUpdatedOrderProduct = new OrderProduct593();
         partialUpdatedOrderProduct.setId(orderProduct.getId());
 
         partialUpdatedOrderProduct.productName(UPDATED_PRODUCT_NAME).quantity(UPDATED_QUANTITY).price(UPDATED_PRICE);
@@ -302,9 +302,9 @@ class OrderProductResourceIT {
             .andExpect(status().isOk());
 
         // Validate the OrderProduct in the database
-        List<OrderProduct> orderProductList = orderProductRepository.findAll();
+        List<OrderProduct593> orderProductList = orderProductRepository.findAll();
         assertThat(orderProductList).hasSize(databaseSizeBeforeUpdate);
-        OrderProduct testOrderProduct = orderProductList.get(orderProductList.size() - 1);
+        OrderProduct593 testOrderProduct = orderProductList.get(orderProductList.size() - 1);
         assertThat(testOrderProduct.getProductName()).isEqualTo(UPDATED_PRODUCT_NAME);
         assertThat(testOrderProduct.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testOrderProduct.getPrice()).isEqualByComparingTo(UPDATED_PRICE);
@@ -326,7 +326,7 @@ class OrderProductResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the OrderProduct in the database
-        List<OrderProduct> orderProductList = orderProductRepository.findAll();
+        List<OrderProduct593> orderProductList = orderProductRepository.findAll();
         assertThat(orderProductList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -346,7 +346,7 @@ class OrderProductResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the OrderProduct in the database
-        List<OrderProduct> orderProductList = orderProductRepository.findAll();
+        List<OrderProduct593> orderProductList = orderProductRepository.findAll();
         assertThat(orderProductList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -364,7 +364,7 @@ class OrderProductResourceIT {
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the OrderProduct in the database
-        List<OrderProduct> orderProductList = orderProductRepository.findAll();
+        List<OrderProduct593> orderProductList = orderProductRepository.findAll();
         assertThat(orderProductList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -382,7 +382,7 @@ class OrderProductResourceIT {
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
-        List<OrderProduct> orderProductList = orderProductRepository.findAll();
+        List<OrderProduct593> orderProductList = orderProductRepository.findAll();
         assertThat(orderProductList).hasSize(databaseSizeBeforeDelete - 1);
     }
 }

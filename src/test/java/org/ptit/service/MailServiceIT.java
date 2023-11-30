@@ -25,7 +25,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.ptit.IntegrationTest;
 import org.ptit.config.Constants;
-import org.ptit.domain.User;
+import org.ptit.domain.User593;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.MailSendException;
@@ -124,7 +124,7 @@ class MailServiceIT {
 
     @Test
     void testSendEmailFromTemplate() throws Exception {
-        User user = new User();
+        User593 user = new User593();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
@@ -140,7 +140,7 @@ class MailServiceIT {
 
     @Test
     void testSendActivationEmail() throws Exception {
-        User user = new User();
+        User593 user = new User593();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
@@ -155,7 +155,7 @@ class MailServiceIT {
 
     @Test
     void testCreationEmail() throws Exception {
-        User user = new User();
+        User593 user = new User593();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
@@ -170,7 +170,7 @@ class MailServiceIT {
 
     @Test
     void testSendPasswordResetMail() throws Exception {
-        User user = new User();
+        User593 user = new User593();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
@@ -195,7 +195,7 @@ class MailServiceIT {
 
     @Test
     void testSendLocalizedEmailForAllSupportedLanguages() throws Exception {
-        User user = new User();
+        User593 user = new User593();
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
         for (String langKey : languages) {

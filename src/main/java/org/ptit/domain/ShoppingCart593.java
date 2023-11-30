@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "shopping_cart")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class ShoppingCart implements Serializable {
+public class ShoppingCart593 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,7 +25,7 @@ public class ShoppingCart implements Serializable {
     private Long userId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Product product;
+    private Product593 product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -33,7 +33,7 @@ public class ShoppingCart implements Serializable {
         return this.id;
     }
 
-    public ShoppingCart id(Long id) {
+    public ShoppingCart593 id(Long id) {
         this.setId(id);
         return this;
     }
@@ -46,7 +46,7 @@ public class ShoppingCart implements Serializable {
         return this.quantity;
     }
 
-    public ShoppingCart quantity(Integer quantity) {
+    public ShoppingCart593 quantity(Integer quantity) {
         this.setQuantity(quantity);
         return this;
     }
@@ -59,7 +59,7 @@ public class ShoppingCart implements Serializable {
         return this.userId;
     }
 
-    public ShoppingCart userId(Long userId) {
+    public ShoppingCart593 userId(Long userId) {
         this.setUserId(userId);
         return this;
     }
@@ -68,15 +68,15 @@ public class ShoppingCart implements Serializable {
         this.userId = userId;
     }
 
-    public Product getProduct() {
+    public Product593 getProduct() {
         return this.product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(Product593 product) {
         this.product = product;
     }
 
-    public ShoppingCart product(Product product) {
+    public ShoppingCart593 product(Product593 product) {
         this.setProduct(product);
         return this;
     }
@@ -88,10 +88,10 @@ public class ShoppingCart implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ShoppingCart)) {
+        if (!(o instanceof ShoppingCart593)) {
             return false;
         }
-        return getId() != null && getId().equals(((ShoppingCart) o).getId());
+        return getId() != null && getId().equals(((ShoppingCart593) o).getId());
     }
 
     @Override

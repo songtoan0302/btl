@@ -9,7 +9,7 @@ import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ptit.IntegrationTest;
-import org.ptit.domain.User;
+import org.ptit.domain.User593;
 import org.ptit.repository.UserRepository;
 import org.ptit.security.AuthoritiesConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Integration tests for the {@link PublicUserResource} REST controller.
+ * Integration tests for the {@link PublicUserController} REST controller.
  */
 @AutoConfigureMockMvc
 @WithMockUser(authorities = AuthoritiesConstants.ADMIN)
@@ -38,7 +38,7 @@ class PublicUserResourceIT {
     @Autowired
     private MockMvc restUserMockMvc;
 
-    private User user;
+    private User593 user;
 
     @BeforeEach
     public void initTest() {

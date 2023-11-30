@@ -10,9 +10,9 @@ class ProductTest {
 
     @Test
     void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Product.class);
-        Product product1 = getProductSample1();
-        Product product2 = new Product();
+        TestUtil.equalsVerifier(Product593.class);
+        Product593 product1 = getProductSample1();
+        Product593 product2 = new Product593();
         assertThat(product1).isNotEqualTo(product2);
 
         product2.setId(product1.getId());

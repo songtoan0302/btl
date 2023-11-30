@@ -2,8 +2,8 @@ package org.ptit.security;
 
 import java.util.*;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
-import org.ptit.domain.Authority;
-import org.ptit.domain.User;
+import org.ptit.domain.Authority593;
+import org.ptit.domain.User593;
 import org.ptit.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,14 +47,14 @@ public class DomainUserDetailsService implements UserDetailsService {
             .orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database"));
     }
 
-    private org.springframework.security.core.userdetails.User createSpringSecurityUser(String lowercaseLogin, User user) {
+    private org.springframework.security.core.userdetails.User createSpringSecurityUser(String lowercaseLogin, User593 user) {
         if (!user.isActivated()) {
             throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
         }
         List<SimpleGrantedAuthority> grantedAuthorities = user
             .getAuthorities()
             .stream()
-            .map(Authority::getName)
+            .map(Authority593::getName)
             .map(SimpleGrantedAuthority::new)
             .toList();
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), grantedAuthorities);

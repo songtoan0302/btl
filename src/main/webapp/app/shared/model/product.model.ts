@@ -5,6 +5,9 @@ export interface IProduct {
   description?: string | null;
   quantity?: number | null;
   urlImage?: string | null;
+  product?: {
+    id?:string
+  }
 }
 
 export const defaultValue: Readonly<IProduct> = {};

@@ -12,9 +12,9 @@ class OrderProductTest {
 
     @Test
     void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(OrderProduct.class);
-        OrderProduct orderProduct1 = getOrderProductSample1();
-        OrderProduct orderProduct2 = new OrderProduct();
+        TestUtil.equalsVerifier(OrderProduct593.class);
+        OrderProduct593 orderProduct1 = getOrderProductSample1();
+        OrderProduct593 orderProduct2 = new OrderProduct593();
         assertThat(orderProduct1).isNotEqualTo(orderProduct2);
 
         orderProduct2.setId(orderProduct1.getId());
@@ -26,8 +26,8 @@ class OrderProductTest {
 
     @Test
     void orderTest() throws Exception {
-        OrderProduct orderProduct = getOrderProductRandomSampleGenerator();
-        OrderDetail orderDetailBack = getOrderDetailRandomSampleGenerator();
+        OrderProduct593 orderProduct = getOrderProductRandomSampleGenerator();
+        OrderDetail593 orderDetailBack = getOrderDetailRandomSampleGenerator();
 
         orderProduct.setOrder(orderDetailBack);
         assertThat(orderProduct.getOrder()).isEqualTo(orderDetailBack);
@@ -38,8 +38,8 @@ class OrderProductTest {
 
     @Test
     void productTest() throws Exception {
-        OrderProduct orderProduct = getOrderProductRandomSampleGenerator();
-        Product productBack = getProductRandomSampleGenerator();
+        OrderProduct593 orderProduct = getOrderProductRandomSampleGenerator();
+        Product593 productBack = getProductRandomSampleGenerator();
 
         orderProduct.setProduct(productBack);
         assertThat(orderProduct.getProduct()).isEqualTo(productBack);

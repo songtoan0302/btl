@@ -11,9 +11,9 @@ class ShoppingCartTest {
 
     @Test
     void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ShoppingCart.class);
-        ShoppingCart shoppingCart1 = getShoppingCartSample1();
-        ShoppingCart shoppingCart2 = new ShoppingCart();
+        TestUtil.equalsVerifier(ShoppingCart593.class);
+        ShoppingCart593 shoppingCart1 = getShoppingCartSample1();
+        ShoppingCart593 shoppingCart2 = new ShoppingCart593();
         assertThat(shoppingCart1).isNotEqualTo(shoppingCart2);
 
         shoppingCart2.setId(shoppingCart1.getId());
@@ -25,8 +25,8 @@ class ShoppingCartTest {
 
     @Test
     void productTest() throws Exception {
-        ShoppingCart shoppingCart = getShoppingCartRandomSampleGenerator();
-        Product productBack = getProductRandomSampleGenerator();
+        ShoppingCart593 shoppingCart = getShoppingCartRandomSampleGenerator();
+        Product593 productBack = getProductRandomSampleGenerator();
 
         shoppingCart.setProduct(productBack);
         assertThat(shoppingCart.getProduct()).isEqualTo(productBack);

@@ -22,4 +22,21 @@
                                  referencedTableName="product"
                                  />
     </changeSet>
+
+    <changeSet id="20231125135245-223" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="shopping_cart"
+                                 constraintName="fk_order_product__order_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"
+        />
+
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="order_detail"
+                                 constraintName="fk_order_product__product_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"
+        />
+    </changeSet>
 </databaseChangeLog>

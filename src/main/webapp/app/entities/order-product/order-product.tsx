@@ -66,15 +66,11 @@ export const OrderProduct = () => {
   return (
     <div>
       <h2 id="order-product-heading" data-cy="OrderProductHeading">
-        Order Products
+        Chi tiết đơn hàng
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
+            <FontAwesomeIcon icon="sync" spin={loading} /> Làm mới
           </Button>
-          <Link to="/order-product/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp; Tạo mới sản phẩm
-          </Link>
         </div>
       </h2>
       <div className="table-responsive">
@@ -83,22 +79,19 @@ export const OrderProduct = () => {
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  Mã <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
                 <th className="hand" onClick={sort('productName')}>
-                  Product Name <FontAwesomeIcon icon={getSortIconByFieldName('productName')} />
+                  Tên Sản Phẩm <FontAwesomeIcon icon={getSortIconByFieldName('productName')} />
                 </th>
                 <th className="hand" onClick={sort('quantity')}>
-                  Quantity <FontAwesomeIcon icon={getSortIconByFieldName('quantity')} />
+                  Số Lượng <FontAwesomeIcon icon={getSortIconByFieldName('quantity')} />
                 </th>
                 <th className="hand" onClick={sort('price')}>
-                  Price <FontAwesomeIcon icon={getSortIconByFieldName('price')} />
+                  Giá <FontAwesomeIcon icon={getSortIconByFieldName('price')} />
                 </th>
                 <th>
-                  Order <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  Product <FontAwesomeIcon icon="sort" />
+                  Ảnh <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -114,9 +107,9 @@ export const OrderProduct = () => {
                   <td>{orderProduct.productName}</td>
                   <td>{orderProduct.quantity}</td>
                   <td>{orderProduct.price}</td>
-                  <td>{orderProduct.order ? <Link to={`/order-detail/${orderProduct.order.id}`}>{orderProduct.order.id}</Link> : ''}</td>
-                  <td>{orderProduct.product ? <Link to={`/product/${orderProduct.product.id}`}>{orderProduct.product.id}</Link> : ''}</td>
-                  <td className="text-end">
+<td>
+          <img src={orderProduct.product ? orderProduct.product.urlImage : ''} alt="" style={{ width: "100px", height: "100px" }} />
+         </td>                  <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/order-product/${orderProduct.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" />{' '}
@@ -142,7 +135,7 @@ export const OrderProduct = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">No Order Products found</div>
+          !loading && <div className="alert alert-warning">Không có đơn hàng nào</div>
         )}
       </div>
     </div>

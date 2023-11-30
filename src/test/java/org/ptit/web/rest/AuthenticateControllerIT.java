@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.ptit.IntegrationTest;
-import org.ptit.domain.User;
+import org.ptit.domain.User593;
 import org.ptit.repository.UserRepository;
 import org.ptit.web.rest.vm.LoginVM;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ class AuthenticateControllerIT {
     @Test
     @Transactional
     void testAuthorize() throws Exception {
-        User user = new User();
+        User593 user = new User593();
         user.setLogin("user-jwt-controller");
         user.setEmail("user-jwt-controller@example.com");
         user.setActivated(true);
@@ -63,7 +63,7 @@ class AuthenticateControllerIT {
     @Test
     @Transactional
     void testAuthorizeWithRememberMe() throws Exception {
-        User user = new User();
+        User593 user = new User593();
         user.setLogin("user-jwt-controller-remember-me");
         user.setEmail("user-jwt-controller-remember-me@example.com");
         user.setActivated(true);

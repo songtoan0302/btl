@@ -13,8 +13,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ptit.IntegrationTest;
-import org.ptit.domain.Authority;
-import org.ptit.domain.User;
+import org.ptit.domain.Authority593;
+import org.ptit.domain.User593;
 import org.ptit.repository.UserRepository;
 import org.ptit.security.AuthoritiesConstants;
 import org.ptit.service.dto.AdminUserDTO;
@@ -27,7 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Integration tests for the {@link UserResource} REST controller.
+ * Integration tests for the {@link AdminManagerController} REST controller.
  */
 @AutoConfigureMockMvc
 @WithMockUser(authorities = AuthoritiesConstants.ADMIN)
@@ -69,7 +69,7 @@ class UserResourceIT {
     @Autowired
     private MockMvc restUserMockMvc;
 
-    private User user;
+    private User593 user;
 
     /**
      * Create a User.
@@ -77,8 +77,8 @@ class UserResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which has a required relationship to the User entity.
      */
-    public static User createEntity(EntityManager em) {
-        User user = new User();
+    public static User593 createEntity(EntityManager em) {
+        User593 user = new User593();
         user.setLogin(DEFAULT_LOGIN + RandomStringUtils.randomAlphabetic(5));
         user.setPassword(RandomStringUtils.randomAlphanumeric(60));
         user.setActivated(true);
@@ -93,9 +93,9 @@ class UserResourceIT {
     /**
      * Setups the database with one user.
      */
-    public static User initTestUser(UserRepository userRepository, EntityManager em) {
+    public static User593 initTestUser(UserRepository userRepository, EntityManager em) {
         userRepository.deleteAll();
-        User user = createEntity(em);
+        User593 user = createEntity(em);
         user.setLogin(DEFAULT_LOGIN);
         user.setEmail(DEFAULT_EMAIL);
         return user;
@@ -129,7 +129,7 @@ class UserResourceIT {
         // Validate the User in the database
         assertPersistedUsers(users -> {
             assertThat(users).hasSize(databaseSizeBeforeCreate + 1);
-            User testUser = users.get(users.size() - 1);
+            User593 testUser = users.get(users.size() - 1);
             assertThat(testUser.getLogin()).isEqualTo(DEFAULT_LOGIN);
             assertThat(testUser.getFirstName()).isEqualTo(DEFAULT_FIRSTNAME);
             assertThat(testUser.getLastName()).isEqualTo(DEFAULT_LASTNAME);
@@ -268,7 +268,7 @@ class UserResourceIT {
         int databaseSizeBeforeUpdate = userRepository.findAll().size();
 
         // Update the user
-        User updatedUser = userRepository.findById(user.getId()).orElseThrow();
+        User593 updatedUser = userRepository.findById(user.getId()).orElseThrow();
 
         AdminUserDTO user = new AdminUserDTO();
         user.setId(updatedUser.getId());
@@ -292,7 +292,7 @@ class UserResourceIT {
         // Validate the User in the database
         assertPersistedUsers(users -> {
             assertThat(users).hasSize(databaseSizeBeforeUpdate);
-            User testUser = users.stream().filter(usr -> usr.getId().equals(updatedUser.getId())).findFirst().orElseThrow();
+            User593 testUser = users.stream().filter(usr -> usr.getId().equals(updatedUser.getId())).findFirst().orElseThrow();
             assertThat(testUser.getFirstName()).isEqualTo(UPDATED_FIRSTNAME);
             assertThat(testUser.getLastName()).isEqualTo(UPDATED_LASTNAME);
             assertThat(testUser.getEmail()).isEqualTo(UPDATED_EMAIL);
@@ -309,7 +309,7 @@ class UserResourceIT {
         int databaseSizeBeforeUpdate = userRepository.findAll().size();
 
         // Update the user
-        User updatedUser = userRepository.findById(user.getId()).orElseThrow();
+        User593 updatedUser = userRepository.findById(user.getId()).orElseThrow();
 
         AdminUserDTO user = new AdminUserDTO();
         user.setId(updatedUser.getId());
@@ -333,7 +333,7 @@ class UserResourceIT {
         // Validate the User in the database
         assertPersistedUsers(users -> {
             assertThat(users).hasSize(databaseSizeBeforeUpdate);
-            User testUser = users.stream().filter(usr -> usr.getId().equals(updatedUser.getId())).findFirst().orElseThrow();
+            User593 testUser = users.stream().filter(usr -> usr.getId().equals(updatedUser.getId())).findFirst().orElseThrow();
             assertThat(testUser.getLogin()).isEqualTo(UPDATED_LOGIN);
             assertThat(testUser.getFirstName()).isEqualTo(UPDATED_FIRSTNAME);
             assertThat(testUser.getLastName()).isEqualTo(UPDATED_LASTNAME);
@@ -349,7 +349,7 @@ class UserResourceIT {
         // Initialize the database with 2 users
         userRepository.saveAndFlush(user);
 
-        User anotherUser = new User();
+        User593 anotherUser = new User593();
         anotherUser.setLogin("jhipster");
         anotherUser.setPassword(RandomStringUtils.randomAlphanumeric(60));
         anotherUser.setActivated(true);
@@ -361,7 +361,7 @@ class UserResourceIT {
         userRepository.saveAndFlush(anotherUser);
 
         // Update the user
-        User updatedUser = userRepository.findById(user.getId()).orElseThrow();
+        User593 updatedUser = userRepository.findById(user.getId()).orElseThrow();
 
         AdminUserDTO user = new AdminUserDTO();
         user.setId(updatedUser.getId());
@@ -389,7 +389,7 @@ class UserResourceIT {
         // Initialize the database
         userRepository.saveAndFlush(user);
 
-        User anotherUser = new User();
+        User593 anotherUser = new User593();
         anotherUser.setLogin("jhipster");
         anotherUser.setPassword(RandomStringUtils.randomAlphanumeric(60));
         anotherUser.setActivated(true);
@@ -401,7 +401,7 @@ class UserResourceIT {
         userRepository.saveAndFlush(anotherUser);
 
         // Update the user
-        User updatedUser = userRepository.findById(user.getId()).orElseThrow();
+        User593 updatedUser = userRepository.findById(user.getId()).orElseThrow();
 
         AdminUserDTO user = new AdminUserDTO();
         user.setId(updatedUser.getId());
@@ -441,10 +441,10 @@ class UserResourceIT {
 
     @Test
     void testUserEquals() throws Exception {
-        TestUtil.equalsVerifier(User.class);
-        User user1 = new User();
+        TestUtil.equalsVerifier(User593.class);
+        User593 user1 = new User593();
         user1.setId(DEFAULT_ID);
-        User user2 = new User();
+        User593 user2 = new User593();
         user2.setId(user1.getId());
         assertThat(user1).isEqualTo(user2);
         user2.setId(2L);
@@ -468,7 +468,7 @@ class UserResourceIT {
         userDTO.setLastModifiedBy(DEFAULT_LOGIN);
         userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
 
-        User user = userMapper.userDTOToUser(userDTO);
+        User593 user = userMapper.userDTOToUser(userDTO);
         assertThat(user.getId()).isEqualTo(DEFAULT_ID);
         assertThat(user.getLogin()).isEqualTo(DEFAULT_LOGIN);
         assertThat(user.getFirstName()).isEqualTo(DEFAULT_FIRSTNAME);
@@ -491,8 +491,8 @@ class UserResourceIT {
         user.setCreatedDate(Instant.now());
         user.setLastModifiedBy(DEFAULT_LOGIN);
         user.setLastModifiedDate(Instant.now());
-        Set<Authority> authorities = new HashSet<>();
-        Authority authority = new Authority();
+        Set<Authority593> authorities = new HashSet<>();
+        Authority593 authority = new Authority593();
         authority.setName(AuthoritiesConstants.USER);
         authorities.add(authority);
         user.setAuthorities(authorities);
@@ -517,12 +517,12 @@ class UserResourceIT {
 
     @Test
     void testAuthorityEquals() {
-        Authority authorityA = new Authority();
+        Authority593 authorityA = new Authority593();
         assertThat(authorityA).isNotEqualTo(null).isNotEqualTo(new Object());
         assertThat(authorityA.hashCode()).isZero();
         assertThat(authorityA.toString()).isNotNull();
 
-        Authority authorityB = new Authority();
+        Authority593 authorityB = new Authority593();
         assertThat(authorityA).isEqualTo(authorityB);
 
         authorityB.setName(AuthoritiesConstants.ADMIN);
@@ -535,7 +535,7 @@ class UserResourceIT {
         assertThat(authorityA).isEqualTo(authorityB).hasSameHashCodeAs(authorityB);
     }
 
-    private void assertPersistedUsers(Consumer<List<User>> userAssertion) {
+    private void assertPersistedUsers(Consumer<List<User593>> userAssertion) {
         userAssertion.accept(userRepository.findAll());
     }
 }

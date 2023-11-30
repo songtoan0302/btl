@@ -85,39 +85,19 @@ export const ShoppingCartUpdate = () => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="productServiceApp.shoppingCart.home.createOrEditLabel" data-cy="ShoppingCartCreateUpdateHeading">
-            Create or edit a Shopping Cart
+            Giỏ hàng
           </h2>
         </Col>
       </Row>
       <Row className="justify-content-center">
         <Col md="8">
           {loading ? (
-            <p>Loading...</p>
+            <p>Đang Tải ...</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew ? (
-                <ValidatedField
-                  name="id"
-                  required
-                  readOnly
-                  id="shopping-cart-id"
-                  disabled
-                  label="Translation missing for global.field.id"
-                  validate={{ required: true }}
-                />
-              ) : null}
-              <ValidatedField label="Quantity" id="shopping-cart-quantity" name="quantity" data-cy="quantity" type="text" />
-              <ValidatedField disabled label="User Id" id="shopping-cart-userId" name="userId" data-cy="userId" type="text" />
-              <ValidatedField disabled id="shopping-cart-product" name="product" data-cy="product" label="Product" type="select">
-                <option value="" key="0" />
-                {products
-                  ? products.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
+
+              <ValidatedField label="Số lượng" id="shopping-cart-quantity" name="quantity" data-cy="quantity" type="text" />
+
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/shopping-cart" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -126,7 +106,7 @@ export const ShoppingCartUpdate = () => {
               &nbsp;
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
-                &nbsp; Tạo
+                &nbsp; Lưu
               </Button>
             </ValidatedForm>
           )}

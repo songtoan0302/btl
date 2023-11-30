@@ -66,15 +66,11 @@ export const OrderDetail = () => {
   return (
     <div>
       <h2 id="order-detail-heading" data-cy="OrderDetailHeading">
-        Order Details
+       Đơn Hàng
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
           </Button>
-          <Link to="/order-detail/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp; Create a new Order Detail
-          </Link>
         </div>
       </h2>
       <div className="table-responsive">
@@ -83,29 +79,27 @@ export const OrderDetail = () => {
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  Mã <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
                 <th className="hand" onClick={sort('recipientName')}>
-                  Recipient Name <FontAwesomeIcon icon={getSortIconByFieldName('recipientName')} />
+                  Tên Người Nhận <FontAwesomeIcon icon={getSortIconByFieldName('recipientName')} />
                 </th>
                 <th className="hand" onClick={sort('receivePhoneNumber')}>
-                  Receive Phone Number <FontAwesomeIcon icon={getSortIconByFieldName('receivePhoneNumber')} />
+                  Số Điện Thoại <FontAwesomeIcon icon={getSortIconByFieldName('receivePhoneNumber')} />
                 </th>
                 <th className="hand" onClick={sort('receiveAddress')}>
-                  Receive Address <FontAwesomeIcon icon={getSortIconByFieldName('receiveAddress')} />
+                  Địa Chỉ <FontAwesomeIcon icon={getSortIconByFieldName('receiveAddress')} />
                 </th>
                 <th className="hand" onClick={sort('statusPayment')}>
-                  Status Payment <FontAwesomeIcon icon={getSortIconByFieldName('statusPayment')} />
+                  Trạng Thái Thanh Toán <FontAwesomeIcon icon={getSortIconByFieldName('statusPayment')} />
                 </th>
                 <th className="hand" onClick={sort('statusOrder')}>
-                  Status Order <FontAwesomeIcon icon={getSortIconByFieldName('statusOrder')} />
+                  Trạng Thái Đơn Hàng <FontAwesomeIcon icon={getSortIconByFieldName('statusOrder')} />
                 </th>
                 <th className="hand" onClick={sort('paymentMethod')}>
-                  Payment Method <FontAwesomeIcon icon={getSortIconByFieldName('paymentMethod')} />
+                  Phương Thức Thanh Toán <FontAwesomeIcon icon={getSortIconByFieldName('paymentMethod')} />
                 </th>
-                <th className="hand" onClick={sort('userId')}>
-                  User Id <FontAwesomeIcon icon={getSortIconByFieldName('userId')} />
-                </th>
+
                 <th />
               </tr>
             </thead>
@@ -134,15 +128,7 @@ export const OrderDetail = () => {
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">Sửa</span>
                       </Button>
-                      <Button
-                        onClick={() => (location.href = `/order-detail/${orderDetail.id}/delete`)}
-                        color="danger"
-                        size="sm"
-                        data-cy="entityDeleteButton"
-                      >
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">Xóa</span>
-                      </Button>
+
                     </div>
                   </td>
                 </tr>
@@ -150,7 +136,7 @@ export const OrderDetail = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">No Order Details found</div>
+          !loading && <div className="alert alert-warning">Không có đơn hàng</div>
         )}
       </div>
     </div>

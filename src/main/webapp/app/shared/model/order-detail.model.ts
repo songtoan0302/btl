@@ -7,6 +7,7 @@ export interface IOrderDetail {
   statusOrder?: string | null;
   paymentMethod?: string | null;
   userId?: number | null;
+  ProductByCartId?: object | null;
 }
 
 export const defaultValue: Readonly<IOrderDetail> = {};

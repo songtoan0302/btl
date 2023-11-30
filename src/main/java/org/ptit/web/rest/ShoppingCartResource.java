@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import org.ptit.domain.ShoppingCart;
+import org.ptit.domain.ShoppingCart593;
 import org.ptit.repository.ShoppingCartRepository;
 import org.ptit.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
- * REST controller for managing {@link org.ptit.domain.ShoppingCart}.
+ * REST controller for managing {@link ShoppingCart593}.
  */
 @RestController
 @RequestMapping("/api/shopping-carts")
@@ -46,12 +46,12 @@ public class ShoppingCartResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<ShoppingCart> createShoppingCart(@RequestBody ShoppingCart shoppingCart) throws URISyntaxException {
+    public ResponseEntity<ShoppingCart593> createShoppingCart(@RequestBody ShoppingCart593 shoppingCart) throws URISyntaxException {
         log.debug("REST request to save ShoppingCart : {}", shoppingCart);
         if (shoppingCart.getId() != null) {
             throw new BadRequestAlertException("A new shoppingCart cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ShoppingCart result = shoppingCartRepository.save(shoppingCart);
+        ShoppingCart593 result = shoppingCartRepository.save(shoppingCart);
         return ResponseEntity
             .created(new URI("/api/shopping-carts/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -69,9 +69,9 @@ public class ShoppingCartResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<ShoppingCart> updateShoppingCart(
+    public ResponseEntity<ShoppingCart593> updateShoppingCart(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody ShoppingCart shoppingCart
+        @RequestBody ShoppingCart593 shoppingCart
     ) throws URISyntaxException {
         log.debug("REST request to update ShoppingCart : {}, {}", id, shoppingCart);
         if (shoppingCart.getId() == null) {
@@ -85,7 +85,7 @@ public class ShoppingCartResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        ShoppingCart result = shoppingCartRepository.save(shoppingCart);
+        ShoppingCart593 result = shoppingCartRepository.save(shoppingCart);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, shoppingCart.getId().toString()))
@@ -104,9 +104,9 @@ public class ShoppingCartResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<ShoppingCart> partialUpdateShoppingCart(
+    public ResponseEntity<ShoppingCart593> partialUpdateShoppingCart(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody ShoppingCart shoppingCart
+        @RequestBody ShoppingCart593 shoppingCart
     ) throws URISyntaxException {
         log.debug("REST request to partial update ShoppingCart partially : {}, {}", id, shoppingCart);
         if (shoppingCart.getId() == null) {
@@ -120,7 +120,7 @@ public class ShoppingCartResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<ShoppingCart> result = shoppingCartRepository
+        Optional<ShoppingCart593> result = shoppingCartRepository
             .findById(shoppingCart.getId())
             .map(existingShoppingCart -> {
                 if (shoppingCart.getQuantity() != null) {
@@ -145,10 +145,10 @@ public class ShoppingCartResource {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of shoppingCarts in body.
      */
-    @GetMapping("")
-    public List<ShoppingCart> getAllShoppingCarts() {
+    @GetMapping("/user/{user_id}")
+    public List<ShoppingCart593> getAllShoppingCarts(@PathVariable("user_id") Long userId) {
         log.debug("REST request to get all ShoppingCarts");
-        return shoppingCartRepository.findAll();
+        return shoppingCartRepository.findByUserId(userId);
     }
 
     /**
@@ -158,9 +158,9 @@ public class ShoppingCartResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the shoppingCart, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ShoppingCart> getShoppingCart(@PathVariable Long id) {
+    public ResponseEntity<ShoppingCart593> getShoppingCart(@PathVariable Long id) {
         log.debug("REST request to get ShoppingCart : {}", id);
-        Optional<ShoppingCart> shoppingCart = shoppingCartRepository.findById(id);
+        Optional<ShoppingCart593> shoppingCart = shoppingCartRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(shoppingCart);
     }
 

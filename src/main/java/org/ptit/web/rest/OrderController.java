@@ -1,31 +1,35 @@
 package org.ptit.web.rest;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import org.ptit.domain.OrderDetail;
+import org.ptit.domain.OrderDetail593;
+import org.ptit.dto.OrderDetailsRequest;
 import org.ptit.repository.OrderDetailRepository;
+import org.ptit.repository.ProductRepository;
 import org.ptit.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 /**
- * REST controller for managing {@link org.ptit.domain.OrderDetail}.
+ * REST controller for managing {@link OrderDetail593}.
  */
 @RestController
 @RequestMapping("/api/order-details")
 @Transactional
-public class OrderDetailResource {
+public class OrderController {
 
-    private final Logger log = LoggerFactory.getLogger(OrderDetailResource.class);
+    private final Logger log = LoggerFactory.getLogger(OrderController.class);
 
     private static final String ENTITY_NAME = "orderDetail";
 
@@ -33,9 +37,11 @@ public class OrderDetailResource {
     private String applicationName;
 
     private final OrderDetailRepository orderDetailRepository;
+    private final ProductRepository productRepository;
 
-    public OrderDetailResource(OrderDetailRepository orderDetailRepository) {
+    public OrderController(OrderDetailRepository orderDetailRepository, ProductRepository productRepository) {
         this.orderDetailRepository = orderDetailRepository;
+        this.productRepository = productRepository;
     }
 
     /**
@@ -46,22 +52,33 @@ public class OrderDetailResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<OrderDetail> createOrderDetail(@RequestBody OrderDetail orderDetail) throws URISyntaxException {
+    public ResponseEntity<OrderDetail593> createOrderDetail(@RequestBody OrderDetail593 orderDetail) throws URISyntaxException {
         log.debug("REST request to save OrderDetail : {}", orderDetail);
         if (orderDetail.getId() != null) {
             throw new BadRequestAlertException("A new orderDetail cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        OrderDetail result = orderDetailRepository.save(orderDetail);
+        OrderDetail593 result = orderDetailRepository.save(orderDetail);
         return ResponseEntity
             .created(new URI("/api/order-details/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
+    @PostMapping("/new")
+    @Transactional
+    public ResponseEntity<OrderDetail593> create(@RequestBody OrderDetailsRequest request) {
+        log.debug("(create) request: {}", request);
+
+        OrderDetail593 result = new OrderDetail593();
+        orderDetailRepository.saveCustom("", "", "", "", "", "", request.getUserId());
+        request.getProduct().forEach(productRepository::save);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     /**
      * {@code PUT  /order-details/:id} : Updates an existing orderDetail.
      *
-     * @param id the id of the orderDetail to save.
+     * @param id          the id of the orderDetail to save.
      * @param orderDetail the orderDetail to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated orderDetail,
      * or with status {@code 400 (Bad Request)} if the orderDetail is not valid,
@@ -69,9 +86,9 @@ public class OrderDetailResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<OrderDetail> updateOrderDetail(
+    public ResponseEntity<OrderDetail593> updateOrderDetail(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody OrderDetail orderDetail
+        @RequestBody OrderDetail593 orderDetail
     ) throws URISyntaxException {
         log.debug("REST request to update OrderDetail : {}, {}", id, orderDetail);
         if (orderDetail.getId() == null) {
@@ -85,7 +102,7 @@ public class OrderDetailResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        OrderDetail result = orderDetailRepository.save(orderDetail);
+        OrderDetail593 result = orderDetailRepository.save(orderDetail);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, orderDetail.getId().toString()))
@@ -104,9 +121,9 @@ public class OrderDetailResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<OrderDetail> partialUpdateOrderDetail(
+    public ResponseEntity<OrderDetail593> partialUpdateOrderDetail(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody OrderDetail orderDetail
+        @RequestBody OrderDetail593 orderDetail
     ) throws URISyntaxException {
         log.debug("REST request to partial update OrderDetail partially : {}, {}", id, orderDetail);
         if (orderDetail.getId() == null) {
@@ -120,7 +137,7 @@ public class OrderDetailResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<OrderDetail> result = orderDetailRepository
+        Optional<OrderDetail593> result = orderDetailRepository
             .findById(orderDetail.getId())
             .map(existingOrderDetail -> {
                 if (orderDetail.getRecipientName() != null) {
@@ -161,7 +178,7 @@ public class OrderDetailResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orderDetails in body.
      */
     @GetMapping("/user/{user_id}")
-    public List<OrderDetail> getAllOrderDetails(@PathVariable("user_id") Long id) {
+    public List<OrderDetail593> getAllOrderDetails(@PathVariable("user_id") Long id) {
         log.debug("REST request to get all OrderDetails");
         return orderDetailRepository.findByUserId(id);
     }
@@ -173,9 +190,9 @@ public class OrderDetailResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the orderDetail, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDetail> getOrderDetail(@PathVariable Long id) {
+    public ResponseEntity<OrderDetail593> getOrderDetail(@PathVariable Long id) {
         log.debug("REST request to get OrderDetail : {}", id);
-        Optional<OrderDetail> orderDetail = orderDetailRepository.findById(id);
+        Optional<OrderDetail593> orderDetail = orderDetailRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(orderDetail);
     }
 

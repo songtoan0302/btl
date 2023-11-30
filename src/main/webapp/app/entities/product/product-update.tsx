@@ -94,7 +94,7 @@ export const ProductUpdate = () => {
                   required
                   readOnly
                   id="product-id"
-                  label="Translation missing for global.field.id"
+                  label="ID"
                   validate={{ required: true }}
                 />
               ) : null}

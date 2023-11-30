@@ -84,7 +84,7 @@ export const Product = () => {
   return (
     <div>
       <h2 id="product-heading" data-cy="ProductHeading">
-        Products
+        Sản phẩm
         <div className="d-flex justify-content-end">
         <input placeholder="Tìm kiếm sản phẩm" onChange={(e) => setKeyword(e.target.value)}/>
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
@@ -92,7 +92,7 @@ export const Product = () => {
           </Button>
          {account?.authorities?.length >= 2 && <Link to="/product/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Create a new Product
+            &nbsp; Tạo mới sản phẩm
           </Link>}
         </div>
       </h2>
@@ -102,22 +102,22 @@ export const Product = () => {
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  STT <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
                 <th className="hand" onClick={sort('name')}>
-                  Name <FontAwesomeIcon icon={getSortIconByFieldName('name')} />
+                  Tên <FontAwesomeIcon icon={getSortIconByFieldName('name')} />
                 </th>
                 <th className="hand" onClick={sort('price')}>
-                  Price <FontAwesomeIcon icon={getSortIconByFieldName('price')} />
+                  Giá(VND) <FontAwesomeIcon icon={getSortIconByFieldName('price')} />
                 </th>
                 <th className="hand" onClick={sort('description')}>
-                  Description <FontAwesomeIcon icon={getSortIconByFieldName('description')} />
+                  Mô tả <FontAwesomeIcon icon={getSortIconByFieldName('description')} />
                 </th>
                 <th className="hand" onClick={sort('quantity')}>
-                  Quantity <FontAwesomeIcon icon={getSortIconByFieldName('quantity')} />
+                  Số lượng <FontAwesomeIcon icon={getSortIconByFieldName('quantity')} />
                 </th>
                 <th className="hand" onClick={sort('urlImage')}>
-                  Url Image <FontAwesomeIcon icon={getSortIconByFieldName('urlImage')} />
+                   Ảnh <FontAwesomeIcon icon={getSortIconByFieldName('urlImage')} />
                 </th>
                 <th />
               </tr>
@@ -126,12 +126,13 @@ export const Product = () => {
               {productList.map((product, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
                   <td>
-                    <Button tag={Link} to={`/product/${product.id}`} color="link" size="sm">
                       {product.id}
-                    </Button>
                   </td>
                   <td>{product.name}</td>
-                  <td>{product.price}</td>
+                  <td>{product.price.toLocaleString('vi-VN', {
+                                       style: 'currency',
+                                       currency: 'VND'
+                                     })}</td>
                   <td>{product.description}</td>
                   <td>{product.quantity}</td>
                   <td><img src={product.urlImage} alt="img" style={{width: "150px", height: "150px"}}/></td>
@@ -166,7 +167,7 @@ export const Product = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">No Products found</div>
+          !loading && <div className="alert alert-warning">Không có sản phẩm nào</div>
         )}
       </div>
     </div>

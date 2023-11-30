@@ -21,25 +21,35 @@ export const OrderProductDetail = () => {
   return (
     <Row>
       <Col md="8">
-        <h2 data-cy="orderProductDetailsHeading">Order Product</h2>
+        <h2 data-cy="orderProductDetailsHeading">Chi tiết đơn hàng</h2>
         <dl className="jh-entity-details">
-          <dd>{orderProductEntity.id}</dd>
           <dt>
-            <span id="productName">Product Name</span>
+            <span id="productName">Tên sản phẩm</span>
           </dt>
           <dd>{orderProductEntity.productName}</dd>
           <dt>
-            <span id="quantity">Quantity</span>
+            <span id="quantity">Số lượng </span>
           </dt>
           <dd>{orderProductEntity.quantity}</dd>
           <dt>
-            <span id="price">Price</span>
+            <span id="price">Giá</span>
           </dt>
           <dd>{orderProductEntity.price}</dd>
-          <dt>Order</dt>
-          <dd>{orderProductEntity.order ? orderProductEntity.order.id : ''}</dd>
-          <dt>Product</dt>
-          <dd>{orderProductEntity.product ? orderProductEntity.product.id : ''}</dd>
+
+<dt>Product</dt>
+<dd>
+  {orderProductEntity.product && orderProductEntity.product.urlImage ? (
+    <img
+      src={orderProductEntity.product.urlImage}
+      alt="Product"
+      style={{ width: '150px', height: '150px' }}
+    />
+  ) : (
+    <p>No image available</p>
+  )}
+</dd>
+
+
         </dl>
         <Button tag={Link} to="/order-product" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Quay lại</span>

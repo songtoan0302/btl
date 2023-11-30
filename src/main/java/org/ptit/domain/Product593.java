@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "product")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class Product implements Serializable {
+public class Product593 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,13 +36,12 @@ public class Product implements Serializable {
     @Column(name = "url_image")
     private String urlImage;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
         return this.id;
     }
 
-    public Product id(Long id) {
+    public Product593 id(Long id) {
         this.setId(id);
         return this;
     }
@@ -55,7 +54,7 @@ public class Product implements Serializable {
         return this.name;
     }
 
-    public Product name(String name) {
+    public Product593 name(String name) {
         this.setName(name);
         return this;
     }
@@ -68,7 +67,7 @@ public class Product implements Serializable {
         return this.price;
     }
 
-    public Product price(BigDecimal price) {
+    public Product593 price(BigDecimal price) {
         this.setPrice(price);
         return this;
     }
@@ -81,7 +80,7 @@ public class Product implements Serializable {
         return this.description;
     }
 
-    public Product description(String description) {
+    public Product593 description(String description) {
         this.setDescription(description);
         return this;
     }
@@ -94,7 +93,7 @@ public class Product implements Serializable {
         return this.quantity;
     }
 
-    public Product quantity(Integer quantity) {
+    public Product593 quantity(Integer quantity) {
         this.setQuantity(quantity);
         return this;
     }
@@ -107,7 +106,7 @@ public class Product implements Serializable {
         return this.urlImage;
     }
 
-    public Product urlImage(String urlImage) {
+    public Product593 urlImage(String urlImage) {
         this.setUrlImage(urlImage);
         return this;
     }
@@ -123,10 +122,10 @@ public class Product implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Product)) {
+        if (!(o instanceof Product593)) {
             return false;
         }
-        return getId() != null && getId().equals(((Product) o).getId());
+        return getId() != null && getId().equals(((Product593) o).getId());
     }
 
     @Override

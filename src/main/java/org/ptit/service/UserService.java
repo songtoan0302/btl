@@ -5,8 +5,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.ptit.config.Constants;
-import org.ptit.domain.Authority;
-import org.ptit.domain.User;
+import org.ptit.domain.Authority593;
+import org.ptit.domain.User593;
 import org.ptit.repository.AuthorityRepository;
 import org.ptit.repository.UserRepository;
 import org.ptit.security.AuthoritiesConstants;
@@ -44,7 +44,7 @@ public class UserService {
         this.authorityRepository = authorityRepository;
     }
 
-    public Optional<User> activateRegistration(String key) {
+    public Optional<User593> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
         return userRepository
             .findOneByActivationKey(key)
@@ -57,7 +57,7 @@ public class UserService {
             });
     }
 
-    public Optional<User> completePasswordReset(String newPassword, String key) {
+    public Optional<User593> completePasswordReset(String newPassword, String key) {
         log.debug("Reset user password for reset key {}", key);
         return userRepository
             .findOneByResetKey(key)
@@ -70,10 +70,10 @@ public class UserService {
             });
     }
 
-    public Optional<User> requestPasswordReset(String mail) {
+    public Optional<User593> requestPasswordReset(String mail) {
         return userRepository
             .findOneByEmailIgnoreCase(mail)
-            .filter(User::isActivated)
+            .filter(User593::isActivated)
             .map(user -> {
                 user.setResetKey(RandomUtil.generateResetKey());
                 user.setResetDate(Instant.now());
@@ -81,7 +81,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(AdminUserDTO userDTO, String password) {
+    public User593 registerUser(AdminUserDTO userDTO, String password) {
         userRepository
             .findOneByLogin(userDTO.getLogin().toLowerCase())
             .ifPresent(existingUser -> {
@@ -98,7 +98,7 @@ public class UserService {
                     throw new EmailAlreadyUsedException();
                 }
             });
-        User newUser = new User();
+        User593 newUser = new User593();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin().toLowerCase());
         // new user gets initially a generated password
@@ -114,7 +114,7 @@ public class UserService {
         newUser.setActivated(false);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
-        Set<Authority> authorities = new HashSet<>();
+        Set<Authority593> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
@@ -122,7 +122,7 @@ public class UserService {
         return newUser;
     }
 
-    private boolean removeNonActivatedUser(User existingUser) {
+    private boolean removeNonActivatedUser(User593 existingUser) {
         if (existingUser.isActivated()) {
             return false;
         }
@@ -131,8 +131,8 @@ public class UserService {
         return true;
     }
 
-    public User createUser(AdminUserDTO userDTO) {
-        User user = new User();
+    public User593 createUser(AdminUserDTO userDTO) {
+        User593 user = new User593();
         user.setLogin(userDTO.getLogin().toLowerCase());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
@@ -151,7 +151,7 @@ public class UserService {
         user.setResetDate(Instant.now());
         user.setActivated(true);
         if (userDTO.getAuthorities() != null) {
-            Set<Authority> authorities = userDTO
+            Set<Authority593> authorities = userDTO
                 .getAuthorities()
                 .stream()
                 .map(authorityRepository::findById)
@@ -186,7 +186,7 @@ public class UserService {
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
-                Set<Authority> managedAuthorities = user.getAuthorities();
+                Set<Authority593> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();
                 userDTO
                     .getAuthorities()
@@ -264,12 +264,12 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> getUserWithAuthoritiesByLogin(String login) {
+    public Optional<User593> getUserWithAuthoritiesByLogin(String login) {
         return userRepository.findOneWithAuthoritiesByLogin(login);
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> getUserWithAuthorities() {
+    public Optional<User593> getUserWithAuthorities() {
         return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
     }
 
@@ -294,6 +294,6 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public List<String> getAuthorities() {
-        return authorityRepository.findAll().stream().map(Authority::getName).toList();
+        return authorityRepository.findAll().stream().map(Authority593::getName).toList();
     }
 }

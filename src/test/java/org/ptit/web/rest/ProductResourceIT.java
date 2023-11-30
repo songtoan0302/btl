@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ptit.IntegrationTest;
-import org.ptit.domain.Product;
+import org.ptit.domain.Product593;
 import org.ptit.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Integration tests for the {@link ProductResource} REST controller.
+ * Integration tests for the {@link ProductController} REST controller.
  */
 @IntegrationTest
 @AutoConfigureMockMvc
@@ -61,7 +61,7 @@ class ProductResourceIT {
     @Autowired
     private MockMvc restProductMockMvc;
 
-    private Product product;
+    private Product593 product;
 
     /**
      * Create an entity for this test.
@@ -69,8 +69,8 @@ class ProductResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static Product createEntity(EntityManager em) {
-        Product product = new Product()
+    public static Product593 createEntity(EntityManager em) {
+        Product593 product = new Product593()
             .name(DEFAULT_NAME)
             .price(DEFAULT_PRICE)
             .description(DEFAULT_DESCRIPTION)
@@ -85,8 +85,8 @@ class ProductResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static Product createUpdatedEntity(EntityManager em) {
-        Product product = new Product()
+    public static Product593 createUpdatedEntity(EntityManager em) {
+        Product593 product = new Product593()
             .name(UPDATED_NAME)
             .price(UPDATED_PRICE)
             .description(UPDATED_DESCRIPTION)
@@ -110,9 +110,9 @@ class ProductResourceIT {
             .andExpect(status().isCreated());
 
         // Validate the Product in the database
-        List<Product> productList = productRepository.findAll();
+        List<Product593> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeCreate + 1);
-        Product testProduct = productList.get(productList.size() - 1);
+        Product593 testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProduct.getPrice()).isEqualByComparingTo(DEFAULT_PRICE);
         assertThat(testProduct.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
@@ -134,7 +134,7 @@ class ProductResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the Product in the database
-        List<Product> productList = productRepository.findAll();
+        List<Product593> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeCreate);
     }
 
@@ -192,7 +192,7 @@ class ProductResourceIT {
         int databaseSizeBeforeUpdate = productRepository.findAll().size();
 
         // Update the product
-        Product updatedProduct = productRepository.findById(product.getId()).orElseThrow();
+        Product593 updatedProduct = productRepository.findById(product.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedProduct are not directly saved in db
         em.detach(updatedProduct);
         updatedProduct
@@ -211,9 +211,9 @@ class ProductResourceIT {
             .andExpect(status().isOk());
 
         // Validate the Product in the database
-        List<Product> productList = productRepository.findAll();
+        List<Product593> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
-        Product testProduct = productList.get(productList.size() - 1);
+        Product593 testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProduct.getPrice()).isEqualByComparingTo(UPDATED_PRICE);
         assertThat(testProduct.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
@@ -237,7 +237,7 @@ class ProductResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the Product in the database
-        List<Product> productList = productRepository.findAll();
+        List<Product593> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -257,7 +257,7 @@ class ProductResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the Product in the database
-        List<Product> productList = productRepository.findAll();
+        List<Product593> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -273,7 +273,7 @@ class ProductResourceIT {
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the Product in the database
-        List<Product> productList = productRepository.findAll();
+        List<Product593> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -286,7 +286,7 @@ class ProductResourceIT {
         int databaseSizeBeforeUpdate = productRepository.findAll().size();
 
         // Update the product using partial update
-        Product partialUpdatedProduct = new Product();
+        Product593 partialUpdatedProduct = new Product593();
         partialUpdatedProduct.setId(product.getId());
 
         partialUpdatedProduct.price(UPDATED_PRICE).description(UPDATED_DESCRIPTION).urlImage(UPDATED_URL_IMAGE);
@@ -300,9 +300,9 @@ class ProductResourceIT {
             .andExpect(status().isOk());
 
         // Validate the Product in the database
-        List<Product> productList = productRepository.findAll();
+        List<Product593> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
-        Product testProduct = productList.get(productList.size() - 1);
+        Product593 testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProduct.getPrice()).isEqualByComparingTo(UPDATED_PRICE);
         assertThat(testProduct.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
@@ -319,7 +319,7 @@ class ProductResourceIT {
         int databaseSizeBeforeUpdate = productRepository.findAll().size();
 
         // Update the product using partial update
-        Product partialUpdatedProduct = new Product();
+        Product593 partialUpdatedProduct = new Product593();
         partialUpdatedProduct.setId(product.getId());
 
         partialUpdatedProduct
@@ -338,9 +338,9 @@ class ProductResourceIT {
             .andExpect(status().isOk());
 
         // Validate the Product in the database
-        List<Product> productList = productRepository.findAll();
+        List<Product593> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
-        Product testProduct = productList.get(productList.size() - 1);
+        Product593 testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProduct.getPrice()).isEqualByComparingTo(UPDATED_PRICE);
         assertThat(testProduct.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
@@ -364,7 +364,7 @@ class ProductResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the Product in the database
-        List<Product> productList = productRepository.findAll();
+        List<Product593> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -384,7 +384,7 @@ class ProductResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the Product in the database
-        List<Product> productList = productRepository.findAll();
+        List<Product593> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -400,7 +400,7 @@ class ProductResourceIT {
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the Product in the database
-        List<Product> productList = productRepository.findAll();
+        List<Product593> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -418,7 +418,7 @@ class ProductResourceIT {
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
-        List<Product> productList = productRepository.findAll();
+        List<Product593> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeDelete - 1);
     }
 }

@@ -42,7 +42,7 @@ export const OrderDetailDeleteDialog = () => {
   return (
     <Modal isOpen toggle={handleClose}>
       <ModalHeader toggle={handleClose} data-cy="orderDetailDeleteDialogHeading">
-        Translation missing for entity.delete.title
+      Xác nhận xóa đơn hàng
       </ModalHeader>
       <ModalBody id="productServiceApp.orderDetail.delete.question">
         Bạn có chắc chắn muốn xóa đơn hàng này?

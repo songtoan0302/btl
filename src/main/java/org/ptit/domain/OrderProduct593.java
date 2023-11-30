@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "order_product")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class OrderProduct implements Serializable {
+public class OrderProduct593 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,10 +29,10 @@ public class OrderProduct implements Serializable {
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private OrderDetail order;
+    private OrderDetail593 order;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Product product;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Product593 product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -40,7 +40,7 @@ public class OrderProduct implements Serializable {
         return this.id;
     }
 
-    public OrderProduct id(Long id) {
+    public OrderProduct593 id(Long id) {
         this.setId(id);
         return this;
     }
@@ -53,7 +53,7 @@ public class OrderProduct implements Serializable {
         return this.productName;
     }
 
-    public OrderProduct productName(String productName) {
+    public OrderProduct593 productName(String productName) {
         this.setProductName(productName);
         return this;
     }
@@ -66,7 +66,7 @@ public class OrderProduct implements Serializable {
         return this.quantity;
     }
 
-    public OrderProduct quantity(Integer quantity) {
+    public OrderProduct593 quantity(Integer quantity) {
         this.setQuantity(quantity);
         return this;
     }
@@ -79,7 +79,7 @@ public class OrderProduct implements Serializable {
         return this.price;
     }
 
-    public OrderProduct price(BigDecimal price) {
+    public OrderProduct593 price(BigDecimal price) {
         this.setPrice(price);
         return this;
     }
@@ -88,28 +88,28 @@ public class OrderProduct implements Serializable {
         this.price = price;
     }
 
-    public OrderDetail getOrder() {
+    public OrderDetail593 getOrder() {
         return this.order;
     }
 
-    public void setOrder(OrderDetail orderDetail) {
+    public void setOrder(OrderDetail593 orderDetail) {
         this.order = orderDetail;
     }
 
-    public OrderProduct order(OrderDetail orderDetail) {
+    public OrderProduct593 order(OrderDetail593 orderDetail) {
         this.setOrder(orderDetail);
         return this;
     }
 
-    public Product getProduct() {
+    public Product593 getProduct() {
         return this.product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(Product593 product) {
         this.product = product;
     }
 
-    public OrderProduct product(Product product) {
+    public OrderProduct593 product(Product593 product) {
         this.setProduct(product);
         return this;
     }
@@ -121,10 +121,10 @@ public class OrderProduct implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof OrderProduct)) {
+        if (!(o instanceof OrderProduct593)) {
             return false;
         }
-        return getId() != null && getId().equals(((OrderProduct) o).getId());
+        return getId() != null && getId().equals(((OrderProduct593) o).getId());
     }
 
     @Override

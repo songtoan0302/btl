@@ -11,16 +11,16 @@ public class OrderProductTestSamples {
     private static final AtomicLong longCount = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
     private static final AtomicInteger intCount = new AtomicInteger(random.nextInt() + (2 * Short.MAX_VALUE));
 
-    public static OrderProduct getOrderProductSample1() {
-        return new OrderProduct().id(1L).productName("productName1").quantity(1);
+    public static OrderProduct593 getOrderProductSample1() {
+        return new OrderProduct593().id(1L).productName("productName1").quantity(1);
     }
 
-    public static OrderProduct getOrderProductSample2() {
-        return new OrderProduct().id(2L).productName("productName2").quantity(2);
+    public static OrderProduct593 getOrderProductSample2() {
+        return new OrderProduct593().id(2L).productName("productName2").quantity(2);
     }
 
-    public static OrderProduct getOrderProductRandomSampleGenerator() {
-        return new OrderProduct()
+    public static OrderProduct593 getOrderProductRandomSampleGenerator() {
+        return new OrderProduct593()
             .id(longCount.incrementAndGet())
             .productName(UUID.randomUUID().toString())
             .quantity(intCount.incrementAndGet());

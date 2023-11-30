@@ -18,8 +18,8 @@ const apiUrl = 'api/shopping-carts';
 
 // Actions
 
-export const getEntities = createAsyncThunk('shoppingCart/fetch_entity_list', async ({ sort }: IQueryParams) => {
-  const requestUrl = `${apiUrl}?${sort ? `sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
+export const getEntities = createAsyncThunk('shoppingCart/fetch_entity_list', async ({ sort, id }: IQueryParams) => {
+  const requestUrl = `${apiUrl}/user/${id}?${sort ? `sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
   return axios.get<IShoppingCart[]>(requestUrl);
 });
 
@@ -36,7 +36,7 @@ export const createEntity = createAsyncThunk(
   'shoppingCart/create_entity',
   async (entity: IShoppingCart, thunkAPI) => {
     const result = await axios.post<IShoppingCart>(apiUrl, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+//     thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -46,7 +46,7 @@ export const updateEntity = createAsyncThunk(
   'shoppingCart/update_entity',
   async (entity: IShoppingCart, thunkAPI) => {
     const result = await axios.put<IShoppingCart>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+//     thunkAPI.dispatch(getEntities({}));
     return result;
   },
   { serializeError: serializeAxiosError },
@@ -67,7 +67,7 @@ export const deleteEntity = createAsyncThunk(
   async (id: string | number, thunkAPI) => {
     const requestUrl = `${apiUrl}/${id}`;
     const result = await axios.delete<IShoppingCart>(requestUrl);
-    thunkAPI.dispatch(getEntities({}));
+//     thunkAPI.dispatch(getEntities({id}));
     return result;
   },
   { serializeError: serializeAxiosError },

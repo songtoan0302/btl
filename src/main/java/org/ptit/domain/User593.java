@@ -19,8 +19,8 @@ import org.ptit.config.Constants;
  * A user.
  */
 @Entity
-@Table(name = "jhi_user")
-public class User extends AbstractAuditingEntity<Long> implements Serializable {
+@Table(name = "user")
+public class User593 extends AbstractAuditingEntity<Long> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -81,12 +81,12 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-        name = "jhi_user_authority",
+        name = "user_authority",
         joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
         inverseJoinColumns = { @JoinColumn(name = "authority_name", referencedColumnName = "name") }
     )
     @BatchSize(size = 20)
-    private Set<Authority> authorities = new HashSet<>();
+    private Set<Authority593> authorities = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -185,11 +185,11 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
         this.langKey = langKey;
     }
 
-    public Set<Authority> getAuthorities() {
+    public Set<Authority593> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Set<Authority> authorities) {
+    public void setAuthorities(Set<Authority593> authorities) {
         this.authorities = authorities;
     }
 
@@ -198,10 +198,10 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof User)) {
+        if (!(o instanceof User593)) {
             return false;
         }
-        return id != null && id.equals(((User) o).id);
+        return id != null && id.equals(((User593) o).id);
     }
 
     @Override

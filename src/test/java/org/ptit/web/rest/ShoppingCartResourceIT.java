@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ptit.IntegrationTest;
-import org.ptit.domain.ShoppingCart;
+import org.ptit.domain.ShoppingCart593;
 import org.ptit.repository.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -50,7 +50,7 @@ class ShoppingCartResourceIT {
     @Autowired
     private MockMvc restShoppingCartMockMvc;
 
-    private ShoppingCart shoppingCart;
+    private ShoppingCart593 shoppingCart;
 
     /**
      * Create an entity for this test.
@@ -58,8 +58,8 @@ class ShoppingCartResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static ShoppingCart createEntity(EntityManager em) {
-        ShoppingCart shoppingCart = new ShoppingCart().quantity(DEFAULT_QUANTITY).userId(DEFAULT_USER_ID);
+    public static ShoppingCart593 createEntity(EntityManager em) {
+        ShoppingCart593 shoppingCart = new ShoppingCart593().quantity(DEFAULT_QUANTITY).userId(DEFAULT_USER_ID);
         return shoppingCart;
     }
 
@@ -69,8 +69,8 @@ class ShoppingCartResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static ShoppingCart createUpdatedEntity(EntityManager em) {
-        ShoppingCart shoppingCart = new ShoppingCart().quantity(UPDATED_QUANTITY).userId(UPDATED_USER_ID);
+    public static ShoppingCart593 createUpdatedEntity(EntityManager em) {
+        ShoppingCart593 shoppingCart = new ShoppingCart593().quantity(UPDATED_QUANTITY).userId(UPDATED_USER_ID);
         return shoppingCart;
     }
 
@@ -89,9 +89,9 @@ class ShoppingCartResourceIT {
             .andExpect(status().isCreated());
 
         // Validate the ShoppingCart in the database
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        List<ShoppingCart593> shoppingCartList = shoppingCartRepository.findAll();
         assertThat(shoppingCartList).hasSize(databaseSizeBeforeCreate + 1);
-        ShoppingCart testShoppingCart = shoppingCartList.get(shoppingCartList.size() - 1);
+        ShoppingCart593 testShoppingCart = shoppingCartList.get(shoppingCartList.size() - 1);
         assertThat(testShoppingCart.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
         assertThat(testShoppingCart.getUserId()).isEqualTo(DEFAULT_USER_ID);
     }
@@ -110,7 +110,7 @@ class ShoppingCartResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the ShoppingCart in the database
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        List<ShoppingCart593> shoppingCartList = shoppingCartRepository.findAll();
         assertThat(shoppingCartList).hasSize(databaseSizeBeforeCreate);
     }
 
@@ -162,7 +162,7 @@ class ShoppingCartResourceIT {
         int databaseSizeBeforeUpdate = shoppingCartRepository.findAll().size();
 
         // Update the shoppingCart
-        ShoppingCart updatedShoppingCart = shoppingCartRepository.findById(shoppingCart.getId()).orElseThrow();
+        ShoppingCart593 updatedShoppingCart = shoppingCartRepository.findById(shoppingCart.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedShoppingCart are not directly saved in db
         em.detach(updatedShoppingCart);
         updatedShoppingCart.quantity(UPDATED_QUANTITY).userId(UPDATED_USER_ID);
@@ -176,9 +176,9 @@ class ShoppingCartResourceIT {
             .andExpect(status().isOk());
 
         // Validate the ShoppingCart in the database
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        List<ShoppingCart593> shoppingCartList = shoppingCartRepository.findAll();
         assertThat(shoppingCartList).hasSize(databaseSizeBeforeUpdate);
-        ShoppingCart testShoppingCart = shoppingCartList.get(shoppingCartList.size() - 1);
+        ShoppingCart593 testShoppingCart = shoppingCartList.get(shoppingCartList.size() - 1);
         assertThat(testShoppingCart.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testShoppingCart.getUserId()).isEqualTo(UPDATED_USER_ID);
     }
@@ -199,7 +199,7 @@ class ShoppingCartResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the ShoppingCart in the database
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        List<ShoppingCart593> shoppingCartList = shoppingCartRepository.findAll();
         assertThat(shoppingCartList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -219,7 +219,7 @@ class ShoppingCartResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the ShoppingCart in the database
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        List<ShoppingCart593> shoppingCartList = shoppingCartRepository.findAll();
         assertThat(shoppingCartList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -235,7 +235,7 @@ class ShoppingCartResourceIT {
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the ShoppingCart in the database
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        List<ShoppingCart593> shoppingCartList = shoppingCartRepository.findAll();
         assertThat(shoppingCartList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -248,7 +248,7 @@ class ShoppingCartResourceIT {
         int databaseSizeBeforeUpdate = shoppingCartRepository.findAll().size();
 
         // Update the shoppingCart using partial update
-        ShoppingCart partialUpdatedShoppingCart = new ShoppingCart();
+        ShoppingCart593 partialUpdatedShoppingCart = new ShoppingCart593();
         partialUpdatedShoppingCart.setId(shoppingCart.getId());
 
         partialUpdatedShoppingCart.userId(UPDATED_USER_ID);
@@ -262,9 +262,9 @@ class ShoppingCartResourceIT {
             .andExpect(status().isOk());
 
         // Validate the ShoppingCart in the database
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        List<ShoppingCart593> shoppingCartList = shoppingCartRepository.findAll();
         assertThat(shoppingCartList).hasSize(databaseSizeBeforeUpdate);
-        ShoppingCart testShoppingCart = shoppingCartList.get(shoppingCartList.size() - 1);
+        ShoppingCart593 testShoppingCart = shoppingCartList.get(shoppingCartList.size() - 1);
         assertThat(testShoppingCart.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
         assertThat(testShoppingCart.getUserId()).isEqualTo(UPDATED_USER_ID);
     }
@@ -278,7 +278,7 @@ class ShoppingCartResourceIT {
         int databaseSizeBeforeUpdate = shoppingCartRepository.findAll().size();
 
         // Update the shoppingCart using partial update
-        ShoppingCart partialUpdatedShoppingCart = new ShoppingCart();
+        ShoppingCart593 partialUpdatedShoppingCart = new ShoppingCart593();
         partialUpdatedShoppingCart.setId(shoppingCart.getId());
 
         partialUpdatedShoppingCart.quantity(UPDATED_QUANTITY).userId(UPDATED_USER_ID);
@@ -292,9 +292,9 @@ class ShoppingCartResourceIT {
             .andExpect(status().isOk());
 
         // Validate the ShoppingCart in the database
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        List<ShoppingCart593> shoppingCartList = shoppingCartRepository.findAll();
         assertThat(shoppingCartList).hasSize(databaseSizeBeforeUpdate);
-        ShoppingCart testShoppingCart = shoppingCartList.get(shoppingCartList.size() - 1);
+        ShoppingCart593 testShoppingCart = shoppingCartList.get(shoppingCartList.size() - 1);
         assertThat(testShoppingCart.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testShoppingCart.getUserId()).isEqualTo(UPDATED_USER_ID);
     }
@@ -315,7 +315,7 @@ class ShoppingCartResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the ShoppingCart in the database
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        List<ShoppingCart593> shoppingCartList = shoppingCartRepository.findAll();
         assertThat(shoppingCartList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -335,7 +335,7 @@ class ShoppingCartResourceIT {
             .andExpect(status().isBadRequest());
 
         // Validate the ShoppingCart in the database
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        List<ShoppingCart593> shoppingCartList = shoppingCartRepository.findAll();
         assertThat(shoppingCartList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -353,7 +353,7 @@ class ShoppingCartResourceIT {
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the ShoppingCart in the database
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        List<ShoppingCart593> shoppingCartList = shoppingCartRepository.findAll();
         assertThat(shoppingCartList).hasSize(databaseSizeBeforeUpdate);
     }
 
@@ -371,7 +371,7 @@ class ShoppingCartResourceIT {
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
-        List<ShoppingCart> shoppingCartList = shoppingCartRepository.findAll();
+        List<ShoppingCart593> shoppingCartList = shoppingCartRepository.findAll();
         assertThat(shoppingCartList).hasSize(databaseSizeBeforeDelete - 1);
     }
 }

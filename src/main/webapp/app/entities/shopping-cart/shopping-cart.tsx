@@ -27,6 +27,7 @@ export const ShoppingCart = () => {
     dispatch(
       getEntities({
         sort: `${sortState.sort},${sortState.order}`,
+        id: account.id
       }),
     );
   };
@@ -68,7 +69,7 @@ export const ShoppingCart = () => {
   const handleBuyNow = () => {
   const params = {
                      "userId": account.id,
-                     "product": [...shoppingCartList]
+                     "product": [...shoppingCartList.map((item) => item.product)]
                  }
                  dispatch(createEntityV2(params));
   }
@@ -79,12 +80,12 @@ export const ShoppingCart = () => {
         Giỏ hàng
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
+            <FontAwesomeIcon icon="sync" spin={loading} /> Làm mới
           </Button>
-          <Button onClick={() => handleBuyNow()} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+          <Button tag={Link} to={`/order-detail/new`} replace color="primary">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Buy now
-          </Link>
+            &nbsp; Mua hàng
+          </Button>
         </div>
       </h2>
       <div className="table-responsive">
@@ -93,17 +94,17 @@ export const ShoppingCart = () => {
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  Mã <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
                 <th className="hand" onClick={sort('quantity')}>
-                  Quantity <FontAwesomeIcon icon={getSortIconByFieldName('quantity')} />
+                  Số lượng <FontAwesomeIcon icon={getSortIconByFieldName('quantity')} />
                 </th>
                 <th className="hand" onClick={sort('userId')}>
-                  Name<FontAwesomeIcon icon={getSortIconByFieldName('userId')} />
+                  Tên <FontAwesomeIcon icon={getSortIconByFieldName('userId')} />
                 </th>
 
                 <th>
-                                  image
+                                  Hình ảnh
                                 </th>
                 <th />
               </tr>
@@ -147,7 +148,7 @@ export const ShoppingCart = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">No Shopping Carts found</div>
+          !loading && <div className="alert alert-warning">Bạn chưa có sản phẩm nào trong giỏ hàng</div>
         )}
       </div>
     </div>

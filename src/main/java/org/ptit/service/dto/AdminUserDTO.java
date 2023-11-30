@@ -6,8 +6,8 @@ import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.ptit.config.Constants;
-import org.ptit.domain.Authority;
-import org.ptit.domain.User;
+import org.ptit.domain.Authority593;
+import org.ptit.domain.User593;
 
 /**
  * A DTO representing a user, with his authorities.
@@ -55,7 +55,7 @@ public class AdminUserDTO implements Serializable {
         // Empty constructor needed for Jackson.
     }
 
-    public AdminUserDTO(User user) {
+    public AdminUserDTO(User593 user) {
         this.id = user.getId();
         this.login = user.getLogin();
         this.firstName = user.getFirstName();
@@ -68,7 +68,7 @@ public class AdminUserDTO implements Serializable {
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
-        this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
+        this.authorities = user.getAuthorities().stream().map(Authority593::getName).collect(Collectors.toSet());
     }
 
     public Long getId() {

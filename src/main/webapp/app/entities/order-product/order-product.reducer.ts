@@ -19,7 +19,7 @@ const apiUrl = 'api/order-products';
 // Actions
 
 export const getEntities = createAsyncThunk('orderProduct/fetch_entity_list', async ({ sort }: IQueryParams) => {
-  const requestUrl = `${apiUrl}?${sort ? `sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
+  const requestUrl = `${apiUrl}/user/2?${sort ? `sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
   return axios.get<IOrderProduct[]>(requestUrl);
 });
 

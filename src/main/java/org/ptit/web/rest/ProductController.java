@@ -1,32 +1,35 @@
 package org.ptit.web.rest;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import org.ptit.domain.Product;
+import org.ptit.domain.Product593;
+import org.ptit.dto.ProductDTO;
 import org.ptit.repository.ProductRepository;
 import org.ptit.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 /**
- * REST controller for managing {@link org.ptit.domain.Product}.
+ * REST controller for managing {@link Product593}.
  */
 @RestController
 @RequestMapping("/api/products")
 @Transactional
-public class ProductResource {
+public class ProductController {
 
-    private final Logger log = LoggerFactory.getLogger(ProductResource.class);
+    private final Logger log = LoggerFactory.getLogger(ProductController.class);
 
     private static final String ENTITY_NAME = "product";
 
@@ -35,7 +38,7 @@ public class ProductResource {
 
     private final ProductRepository productRepository;
 
-    public ProductResource(ProductRepository productRepository) {
+    public ProductController(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
@@ -47,16 +50,13 @@ public class ProductResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) throws URISyntaxException {
+    public ResponseEntity<Product593> createProduct(@RequestBody Product593 product) throws URISyntaxException {
         log.debug("REST request to save Product : {}", product);
         if (product.getId() != null) {
             throw new BadRequestAlertException("A new product cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Product result = productRepository.save(product);
-        return ResponseEntity
-            .created(new URI("/api/products/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        Product593 result = productRepository.save(product);
+        return ResponseEntity.created(new URI("/api/products/" + result.getId())).headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString())).body(result);
     }
 
     /**
@@ -70,8 +70,7 @@ public class ProductResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable(value = "id", required = false) final Long id, @RequestBody Product product)
-        throws URISyntaxException {
+    public ResponseEntity<Product593> updateProduct(@PathVariable(value = "id", required = false) final Long id, @RequestBody Product593 product) throws URISyntaxException {
         log.debug("REST request to update Product : {}, {}", id, product);
         if (product.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -84,7 +83,7 @@ public class ProductResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Product result = productRepository.save(product);
+        Product593 result = productRepository.save(product);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, product.getId().toString()))
@@ -102,11 +101,8 @@ public class ProductResource {
      * or with status {@code 500 (Internal Server Error)} if the product couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Product> partialUpdateProduct(
-        @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Product product
-    ) throws URISyntaxException {
+    @PatchMapping(value = "/{id}", consumes = {"application/json", "application/merge-patch+json"})
+    public ResponseEntity<Product593> partialUpdateProduct(@PathVariable(value = "id", required = false) final Long id, @RequestBody Product593 product) throws URISyntaxException {
         log.debug("REST request to partial update Product partially : {}, {}", id, product);
         if (product.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -119,9 +115,7 @@ public class ProductResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Product> result = productRepository
-            .findById(product.getId())
-            .map(existingProduct -> {
+        Optional<Product593> result = productRepository.findById(product.getId()).map(existingProduct -> {
                 if (product.getName() != null) {
                     existingProduct.setName(product.getName());
                 }
@@ -154,9 +148,9 @@ public class ProductResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.
      */
     @GetMapping("")
-    public List<Product> getAllProducts(@Param("name") String name) {
+    public List<Product593> getAllProducts(@Param("name") String name) {
         log.debug("REST request to get all Products");
-        return productRepository.findByNameContaining(name == null ? "": name);
+        return productRepository.findByNameContaining(name == null ? "" : name);
     }
 
     /**
@@ -166,9 +160,9 @@ public class ProductResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the product, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable Long id) {
+    public ResponseEntity<Product593> getProduct(@PathVariable Long id) {
         log.debug("REST request to get Product : {}", id);
-        Optional<Product> product = productRepository.findById(id);
+        Optional<Product593> product = productRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(product);
     }
 
@@ -182,9 +176,13 @@ public class ProductResource {
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         log.debug("REST request to delete Product : {}", id);
         productRepository.deleteById(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-            .build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/order/{order_id}")
+    public ResponseEntity<?> getProductByOrder(@PathVariable("order_id") String orderId) {
+        Long id = Objects.isNull(orderId)? null : Long.parseLong(orderId);
+        log.info("getProductByOrderdddddd {}",orderId );
+        return new ResponseEntity<>(productRepository.findListProductByOrderId(id).stream().map(element -> new ProductDTO(element.getId(), element.getName(), element.getPrice(), element.getDescription(), element.getUrlImage(), element.getQuantity())).toList(), HttpStatus.OK);
     }
 }

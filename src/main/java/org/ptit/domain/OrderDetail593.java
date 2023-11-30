@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "order_detail")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class OrderDetail implements Serializable {
+public class OrderDetail593 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,7 +39,7 @@ public class OrderDetail implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    private User593 user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -47,7 +47,7 @@ public class OrderDetail implements Serializable {
         return this.id;
     }
 
-    public OrderDetail id(Long id) {
+    public OrderDetail593 id(Long id) {
         this.setId(id);
         return this;
     }
@@ -60,7 +60,7 @@ public class OrderDetail implements Serializable {
         return this.recipientName;
     }
 
-    public OrderDetail recipientName(String recipientName) {
+    public OrderDetail593 recipientName(String recipientName) {
         this.setRecipientName(recipientName);
         return this;
     }
@@ -73,7 +73,7 @@ public class OrderDetail implements Serializable {
         return this.receivePhoneNumber;
     }
 
-    public OrderDetail receivePhoneNumber(String receivePhoneNumber) {
+    public OrderDetail593 receivePhoneNumber(String receivePhoneNumber) {
         this.setReceivePhoneNumber(receivePhoneNumber);
         return this;
     }
@@ -86,7 +86,7 @@ public class OrderDetail implements Serializable {
         return this.receiveAddress;
     }
 
-    public OrderDetail receiveAddress(String receiveAddress) {
+    public OrderDetail593 receiveAddress(String receiveAddress) {
         this.setReceiveAddress(receiveAddress);
         return this;
     }
@@ -99,7 +99,7 @@ public class OrderDetail implements Serializable {
         return this.statusPayment;
     }
 
-    public OrderDetail statusPayment(String statusPayment) {
+    public OrderDetail593 statusPayment(String statusPayment) {
         this.setStatusPayment(statusPayment);
         return this;
     }
@@ -112,7 +112,7 @@ public class OrderDetail implements Serializable {
         return this.statusOrder;
     }
 
-    public OrderDetail statusOrder(String statusOrder) {
+    public OrderDetail593 statusOrder(String statusOrder) {
         this.setStatusOrder(statusOrder);
         return this;
     }
@@ -125,7 +125,7 @@ public class OrderDetail implements Serializable {
         return this.paymentMethod;
     }
 
-    public OrderDetail paymentMethod(String paymentMethod) {
+    public OrderDetail593 paymentMethod(String paymentMethod) {
         this.setPaymentMethod(paymentMethod);
         return this;
     }
@@ -134,16 +134,16 @@ public class OrderDetail implements Serializable {
         this.paymentMethod = paymentMethod;
     }
 
-    public User getUser() {
+    public User593 getUser() {
         return this.user;
     }
 
-    public OrderDetail userId(User user) {
+    public OrderDetail593 userId(User593 user) {
         this.setUser(user);
         return this;
     }
 
-    public void setUser(User user) {
+    public void setUser(User593 user) {
         this.user = user;
     }
 
@@ -154,10 +154,10 @@ public class OrderDetail implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof OrderDetail)) {
+        if (!(o instanceof OrderDetail593)) {
             return false;
         }
-        return getId() != null && getId().equals(((OrderDetail) o).getId());
+        return getId() != null && getId().equals(((OrderDetail593) o).getId());
     }
 
     @Override

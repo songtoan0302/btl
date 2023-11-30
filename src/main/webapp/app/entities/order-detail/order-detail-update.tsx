@@ -11,6 +11,28 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { IOrderDetail } from 'app/shared/model/order-detail.model';
 import { getEntity, updateEntity, createEntity, reset } from './order-detail.reducer';
 
+interface IDropdownOption {
+    label: string;
+    value: string;
+}
+
+const paymentMethods: IDropdownOption[] = [
+    { label: "Thanh Toán Khi Nhận Hàng", value: "Thanh Toán Khi Nhận Hàng" },
+    { label: "Chuyển Khoản Ngân Hàng", value: "Chuyển Khoản Ngân Hàng" }
+];
+
+const PaymentDropdown: React.FC = () => {
+    return (
+        <select name="paymentMethod" id="paymentMethod">
+            {paymentMethods.map(method => (
+                <option key={method.value} value={method.value}>
+                    {method.label}
+                </option>
+            ))}
+        </select>
+    );
+};
+
 export const OrderDetailUpdate = () => {
   const dispatch = useAppDispatch();
 
@@ -23,6 +45,14 @@ export const OrderDetailUpdate = () => {
   const loading = useAppSelector(state => state.orderDetail.loading);
   const updating = useAppSelector(state => state.orderDetail.updating);
   const updateSuccess = useAppSelector(state => state.orderDetail.updateSuccess);
+    const shoppingCartList = useAppSelector(state => state.shoppingCart.entities);
+  console.log("shoppingCartList", shoppingCartList)
+
+  const [selectedMethod, setSelectedMethod] = React.useState<string>('Thanh Toán Khi Nhận Hàng');
+
+      const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+          setSelectedMethod(event.target.value);
+      };
 
   const handleClose = () => {
     navigate('/order-detail');
@@ -54,6 +84,8 @@ export const OrderDetailUpdate = () => {
     const entity = {
       ...orderDetailEntity,
       ...values,
+      paymentMethod: selectedMethod,
+      shoppingCartList: shoppingCartList
     };
 
     if (isNew) {
@@ -75,7 +107,7 @@ export const OrderDetailUpdate = () => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="productServiceApp.orderDetail.home.createOrEditLabel" data-cy="OrderDetailCreateUpdateHeading">
-            Create or edit a Order Detail
+            Đơn Hàng
           </h2>
         </Col>
       </Row>
@@ -85,53 +117,45 @@ export const OrderDetailUpdate = () => {
             <p>Loading...</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew ? (
-                <ValidatedField
-                  name="id"
-                  required
-                  readOnly
-                  id="order-detail-id"
-                  label="Translation missing for global.field.id"
-                  validate={{ required: true }}
-                />
-              ) : null}
               <ValidatedField
-                label="Recipient Name"
+                label="Tên người nhận"
                 id="order-detail-recipientName"
                 name="recipientName"
                 data-cy="recipientName"
                 type="text"
               />
               <ValidatedField
-                label="Receive Phone Number"
+                label=" Số điện thoại"
                 id="order-detail-receivePhoneNumber"
                 name="receivePhoneNumber"
                 data-cy="receivePhoneNumber"
                 type="text"
               />
               <ValidatedField
-                label="Receive Address"
+                label="Địa chỉ"
                 id="order-detail-receiveAddress"
                 name="receiveAddress"
                 data-cy="receiveAddress"
                 type="textarea"
               />
-              <ValidatedField
-                label="Status Payment"
-                id="order-detail-statusPayment"
-                name="statusPayment"
-                data-cy="statusPayment"
-                type="text"
-              />
-              <ValidatedField label="Status Order" id="order-detail-statusOrder" name="statusOrder" data-cy="statusOrder" type="text" />
-              <ValidatedField
-                label="Payment Method"
-                id="order-detail-paymentMethod"
-                name="paymentMethod"
-                data-cy="paymentMethod"
-                type="text"
-              />
-              <ValidatedField label="User Id" id="order-detail-userId" name="userId" data-cy="userId" type="text" />
+
+             <div>
+             <p>Phương thức thanh toán</p>
+               <select
+                                        name="paymentMethod"
+                                        id="paymentMethod"
+                                        value={selectedMethod}
+                                        onChange={handleChange}
+                                        style={{padding: "6px", marginBottom: "16px"}}>
+                                        {paymentMethods.map(method => (
+                                            <option key={method.value} value={method.value}>
+                                                {method.label}
+                                            </option>
+                                        ))}
+                                    </select>
+             </div>
+
+
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/order-detail" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

@@ -91,7 +91,7 @@ export const OrderProductUpdate = () => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="productServiceApp.orderProduct.home.createOrEditLabel" data-cy="OrderProductCreateUpdateHeading">
-            Create or edit a Order Product
+            Chi tiết đơn hàng
           </h2>
         </Col>
       </Row>
@@ -111,9 +111,9 @@ export const OrderProductUpdate = () => {
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField label="Product Name" id="order-product-productName" name="productName" data-cy="productName" type="text" />
-              <ValidatedField label="Quantity" id="order-product-quantity" name="quantity" data-cy="quantity" type="text" />
-              <ValidatedField label="Price" id="order-product-price" name="price" data-cy="price" type="text" />
+              <ValidatedField label="Tên sản phẩm" id="order-product-productName" name="productName" data-cy="productName" type="text" />
+              <ValidatedField label="Số lượng" id="order-product-quantity" name="quantity" data-cy="quantity" type="text" />
+              <ValidatedField label="Giá" id="order-product-price" name="price" data-cy="price" type="text" />
               <ValidatedField id="order-product-order" name="order" data-cy="order" label="Order" type="select">
                 <option value="" key="0" />
                 {orderDetails

@@ -49,7 +49,7 @@ export const PasswordPage = () => {
           <ValidatedForm id="password-form" onSubmit={handleValidSubmit}>
             <ValidatedField
               name="currentPassword"
-              label="Current password"
+              label="Mật khẩu hiện tại"
               placeholder="Current password"
               type="password"
               validate={{
@@ -59,7 +59,7 @@ export const PasswordPage = () => {
             />
             <ValidatedField
               name="newPassword"
-              label="New password"
+              label="Mật khẩu mới"
               placeholder="New password"
               type="password"
               validate={{
@@ -73,14 +73,14 @@ export const PasswordPage = () => {
             <PasswordStrengthBar password={password} />
             <ValidatedField
               name="confirmPassword"
-              label="New password confirmation"
+              label="Xác nhận mật khẩu mới"
               placeholder="Confirm the new password"
               type="password"
               validate={{
                 required: { value: true, message: 'Your confirmation password is required.' },
-                minLength: { value: 4, message: 'Your confirmation password is required to be at least 4 characters.' },
-                maxLength: { value: 50, message: 'Your confirmation password cannot be longer than 50 characters.' },
-                validate: v => v === password || 'The password and its confirmation do not match!',
+                minLength: { value: 4, message: 'Mật khẩu xác nhận của bạn phải có ít nhất 4 ký tự.' },
+                maxLength: { value: 50, message: 'Mật khẩu xác nhận của bạn không thể dài hơn 50 ký tự.' },
+                validate: v => v === password || 'Mật khẩu và xác nhận của nó không khớp!',
               }}
               data-cy="confirmPassword"
             />

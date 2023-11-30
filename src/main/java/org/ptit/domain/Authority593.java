@@ -13,8 +13,8 @@ import java.util.Objects;
  * An authority (a security role) used by Spring Security.
  */
 @Entity
-@Table(name = "jhi_authority")
-public class Authority implements Serializable {
+@Table(name = "authority")
+public class Authority593 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,10 +37,10 @@ public class Authority implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Authority)) {
+        if (!(o instanceof Authority593)) {
             return false;
         }
-        return Objects.equals(name, ((Authority) o).name);
+        return Objects.equals(name, ((Authority593) o).name);
     }
 
     @Override
